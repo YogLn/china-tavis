@@ -1,4 +1,5 @@
 import Vue from 'vue'
-import { Button } from 'element-ui'
+//引入elementUI
+import ElementUI from 'element-ui';
 
-Vue.use(Button)
+Vue.use(ElementUI)
