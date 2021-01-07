@@ -10,7 +10,7 @@
         </el-col>
       </el-row>
 
-      <el-table :data="siteList" style="width: 100%" :default-sort="{prop: 'siteList.id', order: 'ascending'}" stripe border>
+      <el-table :data="siteList" style="width: 100%" :default-sort="{prop: 'siteList.id', order: 'ascending'}" v-loading="tableLoading" stripe border>
         <el-table-column prop="id" label="站点id" sortable width="100px">
         </el-table-column>
         <el-table-column prop="name" label="站点名称" sortable>
@@ -29,7 +29,7 @@
 
     <!-- 修改站点对话框 -->
     <el-dialog title="修改站点" :visible.sync="editSiteDialogVisible" width="30%">
-      <el-form ref="editSiteFormRef" :model="editSiteForm" label-width="80px">
+      <el-form ref="editSiteFormRef" :model="editSiteForm" label-width="80px" v-loading="addSiteLoaing">
         <el-form-item label="站点id">
           <el-input v-model="editSiteForm.id" disabled></el-input>
         </el-form-item>
@@ -65,7 +65,7 @@
     <!-- 所有用户对话框 -->
     <el-dialog title="所有用户信息" :visible.sync="allUserDialogVisible" width="80%">
 
-      <el-table :data="userList" border stripe style="width: 100%" v-if="userList">
+      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" v-loading="allSiteLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="username" label="用户名">
@@ -143,6 +143,9 @@ export default {
       },
       allUserDialogVisible: false,
       siteId: '',
+      tableLoading: false,
+      addSiteLoaing: false,
+      allSiteLoading: false,
     }
   },
   created() {
@@ -150,13 +153,17 @@ export default {
   },
   methods: {
     async getSiteList() {
+      this.tableLoading = true
       const res = await this.$http.get('site/list')
       this.siteList = res.data.data
+      this.tableLoading = false
     },
     async getSiteInfo(id) {
+      this.addSiteLoaing = true
       const res = await this.$http.get(`site/${id}`)
       this.editSiteForm = res.data.data
       this.editSiteDialogVisible = true
+      this.addSiteLoaing = false
     },
     editSiteDialogClose() {
       this.$refs.editSiteFormRef.resetFields()
@@ -192,6 +199,7 @@ export default {
       this.getSiteList()
     },
     async getUser(id) {
+      this.allSiteLoading = true
       this.siteId = id
       const res = await this.$http.get(`site/user/${id}`, {
         params: this.queryInfo,
@@ -204,6 +212,7 @@ export default {
       this.queryInfo.pageSize = res.data.data.pageSize
       this.totalCount = res.data.data.totalCount
       this.allUserDialogVisible = true
+      this.allSiteLoading = false
     },
     showAddSiteDialog() {},
     addSiteDialogClosed() {
