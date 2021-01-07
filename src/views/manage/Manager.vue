@@ -16,7 +16,7 @@
         </el-col>
       </el-row>
       <!-- 表格区域 -->
-      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" max-height="450">
+      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" max-height="450" v-loading="tableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="username" label="用户名">
@@ -100,7 +100,7 @@
 
       <!-- 修改用户对话框 -->
       <el-dialog title="修改用户" :visible.sync="editUserDialogVisable" width="40%" @close="editUserClosed">
-        <el-form ref="editUserRef" :model="editUserForm" label-width="100px" :rules="addUserFormRules">
+        <el-form ref="editUserRef" :model="editUserForm" label-width="100px" :rules="addUserFormRules" v-loading="editLoading">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="editUserForm.username"></el-input>
           </el-form-item>
@@ -224,6 +224,8 @@ export default {
       editSiteValue: '',
       editRoleValue: '',
       resetPwdId: 0,
+      tableLoading: false,
+      editLoading: false,
     }
   },
   methods: {
@@ -238,6 +240,7 @@ export default {
       this.$refs.addUserRef.resetFields()
     },
     async getUserList() {
+      this.tableLoading = true
       const { data: res } = await this.$http.get('manager/user/list', {
         params: this.queryInfo,
       })
@@ -248,6 +251,7 @@ export default {
       this.queryInfo.pageSize = res.data.pageSize
       this.totalCount = res.data.totalCount
       this.userList = res.data.data
+      this.tableLoading = false
     },
     judge(obj) {
       if (obj.roles[0].name === 'ADMIN') {
@@ -331,6 +335,7 @@ export default {
       this.getUserList()
     },
     async showEditDialog(id) {
+      this.editLoading = true
       const res = await this.$http.get(`manager/user/${id}`)
       console.log(res.data)
       this.resetPwdId = res.data.data.id
@@ -345,6 +350,7 @@ export default {
         this.editUserForm.siteId = res.data.data.site.name
       }
       this.editUserDialogVisable = true
+      this.editLoading = false
     },
     editUserClosed() {
       this.$refs.editUserRef.resetFields()

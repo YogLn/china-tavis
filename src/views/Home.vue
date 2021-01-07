@@ -136,7 +136,7 @@ export default {
         },
         {
           id: 7,
-          menuName: '分配权限',
+          menuName: '分配案例',
           icon: 'iconfont iconxinjian',
           path: 'assign',
         },

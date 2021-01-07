@@ -2,7 +2,7 @@
   <div class="">
     <breadcrumb title="案例审核"></breadcrumb>
     <el-card>
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" v-loading="tableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="g1001" label="案例编号">
@@ -117,10 +117,12 @@ export default {
       caseNum: '',
       // 详情
       detailsDialogVisible: false,
+      tableLoading: false,
     }
   },
   methods: {
     async getAccident() {
+      this.tableLoading = true
       const { data: res } = await this.$http.get('accident/check_info', {
         params: this.queryInfo,
       })
@@ -129,6 +131,7 @@ export default {
       this.queryInfo.pageSize = res.data.size
       this.total = res.data.total
       this.allCaseList = res.data.records
+      this.tableLoading = false
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize

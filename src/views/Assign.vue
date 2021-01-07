@@ -1,9 +1,9 @@
 <template>
   <div>
-    <breadcrumb title="分配权限"></breadcrumb>
+    <breadcrumb title="分配案例"></breadcrumb>
     <el-card>
       <!-- table表单 -->
-      <el-table :data="allAuditorList" stripe border style="width: 100%"  max-height="450">
+      <el-table :data="allAuditorList" stripe border style="width: 100%"  max-height="450" v-loading="tableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="username" label="用户名">
@@ -30,7 +30,7 @@
     </el-card>
     <!-- 分配案例对话框 -->
     <el-dialog title="总体信息" :visible.sync="totalDialogVisible" width="80%">
-      <el-table :data="Records" stripe border style="width: 100%" @selection-change="handleSelectionChange" max-height="450">
+      <el-table :data="Records" stripe border style="width: 100%" @selection-change="handleSelectionChange" max-height="450" v-loading="assignTableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column type="selection" width="55">
@@ -68,7 +68,7 @@
     </el-dialog>
     <!-- 修改案例对话框 -->
     <el-dialog title="总体信息" :visible.sync="editDialogVisible" width="80%">
-      <el-table :data="Unreviewed" stripe border style="width: 100%" @selection-change="handleEditSelectionChange" max-height="450">
+      <el-table :data="Unreviewed" stripe border style="width: 100%" @selection-change="handleEditSelectionChange" max-height="450" v-loading="unReviewTableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column type="selection" width="55">
@@ -136,7 +136,7 @@ export default {
       accidentQuery: {
         pageNo: 1,
         pageSize: 5,
-        status: 4,
+        status: 0,
       },
       accidentTotal: 0,
       // 审核员id
@@ -165,14 +165,17 @@ export default {
       },
       optValue: '',
       selectEditList: [],
+      tableLoading: false,
+      assignTableLoading: false,
+      unReviewTableLoading: false
     }
   },
   created() {
     this.getAllAuditor()
-    this.getTotalCase()
   },
   methods: {
     async getAllAuditor() {
+      this.tableLoading = true
       const { data: res } = await this.$http.get('manager/user/auditor', {
         params: this.query,
       })
@@ -184,6 +187,7 @@ export default {
       this.query.pageNo = res.data.pageNo
       this.query.pageSize = res.data.pageSize
       this.totalCount = res.data.totalCount
+      this.tableLoading = false
     },
     handleSizeChange(newSize) {
       this.query.pageSize = newSize
@@ -194,6 +198,7 @@ export default {
       this.getAllAuditor()
     },
     async getTotalCase() {
+      this.assignTableLoading = true
       const { data: res } = await this.$http.get('accident', {
         params: this.accidentQuery,
       })
@@ -205,9 +210,11 @@ export default {
         return this.$message.error('获取总体案例列表失败')
       }
       this.Records = res.data.records
+      this.assignTableLoading = false
     },
     showAssignDialog(id) {
       this.checkUserId = id
+      this.getTotalCase()
       this.totalDialogVisible = true
     },
     handleSelectionChange(arr) {
@@ -233,6 +240,7 @@ export default {
       this.getUnreviewedCase(id)
     },
     async getUnreviewedCase(id) {
+      this.unReviewTableLoading = true
       this.checkUserQuery.userId = id
       const { data: res } = await this.$http.get('accident/check_user', {
         params: this.checkUserQuery,
@@ -241,6 +249,7 @@ export default {
       this.checkUserQuery.pageNo = res.data.current
       this.checkUserQuery.pageSize = res.data.size
       this.total = res.data.total
+      this.unReviewTableLoading = false
     },
     handleEditSizeChange(newSize) {
       this.checkUserQuery.pageSize = newSize

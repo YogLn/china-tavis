@@ -14,7 +14,7 @@
       </el-row>
 
       <!-- 表格区域 -->
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" @selection-change="handleSelectionChange">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" @selection-change="handleSelectionChange" v-loading="tableLoading">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column type="index" label="#">
@@ -153,6 +153,7 @@ export default {
       // 查看案例详情
       detailsDialogVisible: false,
       caseId: '',
+      tableLoading: false,
     }
   },
   methods: {
@@ -165,6 +166,7 @@ export default {
       this.person = dataExport.person
     },
     async getCaseList() {
+      this.tableLoading = true
       const res = await this.$http.get('total/search', {
         params: this.queryInfo,
       })
@@ -175,6 +177,7 @@ export default {
       this.queryInfo.pageNo = res.data.data.pageNo
       this.queryInfo.pageSize = res.data.data.pageSize
       this.totalCount = res.data.data.totalCount
+      this.tableLoading = false
     },
     // 表格选择
     handleSelectionChange(e) {

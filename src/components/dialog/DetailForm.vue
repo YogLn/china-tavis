@@ -3,7 +3,7 @@
     <div class="dialog">
       <el-tabs>
         <el-tab-pane label="总体信息">
-          <el-form :model="totalInfo" label-width="210px" disabled>
+          <el-form :model="totalInfo" label-width="210px" v-loading="detailLoading" disabled>
             <!-- 第一行 -->
             <el-row>
               <el-col :span="8">
@@ -1253,6 +1253,7 @@ export default {
   data() {
     return {
       visible: false,
+      detailLoading: false,
       // 总体信息
       dataProcess: dataProcess,
       totalInfo: {
@@ -1449,6 +1450,7 @@ export default {
       this.$emit('dialogClose')
     },
     async getDetailList(id) {
+      this.detailLoading = true
       this.visible = true
       const { data: res } = await this.$http.get(`total/${id}`)
       if (res.code !== 200) {
@@ -1470,6 +1472,7 @@ export default {
       for (let i = 1; i <= this.wayInfoList.length; i++) {
         this.partIdOption.push(i)
       }
+      this.detailLoading = false
     },
     partIdChange(opt) {
       this.wayInfoList.forEach((item) => {
