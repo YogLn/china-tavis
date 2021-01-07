@@ -256,7 +256,6 @@ export default {
       const res = await this.$http.get('total/search', {
         params: this.queryInfo,
       })
-      console.log(res);
       if (res.data.code !== 200 || res.status !== 200) {
         return this.$message.error('获取案例列表失败')
       }
@@ -280,7 +279,6 @@ export default {
     },
     // 详情对话框
     showDetailDialog(id) {
-      console.log(id)
       this.$refs.DetailFormRef.getDetailList(id)
     },
     /**
