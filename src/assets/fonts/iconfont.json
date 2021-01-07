@@ -1,0 +1,79 @@
+{
+  "id": "2239437",
+  "name": "taffic",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "taffic",
+  "glyphs": [
+    {
+      "icon_id": "761279",
+      "name": "mima",
+      "font_class": "pwd",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "8521197",
+      "name": "账号",
+      "font_class": "user",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "362749",
+      "name": "新建",
+      "font_class": "xinjian",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "2604257",
+      "name": "数据总览",
+      "font_class": "shujuzonglan",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "8142394",
+      "name": "数据总览",
+      "font_class": "shujuzonglan1",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "10339950",
+      "name": "创建用户",
+      "font_class": "chuangjianyonghu",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "13852989",
+      "name": "管理用户管理",
+      "font_class": "guanliyonghuguanli",
+      "unicode": "e8f5",
+      "unicode_decimal": 59637
+    },
+    {
+      "icon_id": "17253618",
+      "name": "数据统计",
+      "font_class": "xitongguanli",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "18544207",
+      "name": "目录",
+      "font_class": "mulu",
+      "unicode": "e8f6",
+      "unicode_decimal": 59638
+    },
+    {
+      "icon_id": "11813966",
+      "name": "accout",
+      "font_class": "accout",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    }
+  ]
+}
