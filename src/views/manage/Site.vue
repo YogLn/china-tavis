@@ -1,10 +1,7 @@
 <template>
   <div>
     <!-- 面包屑导航区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>管理用户</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumb title="管理站点"></breadcrumb>
 
     <el-card>
       <el-row :gutter="20">
@@ -116,7 +113,11 @@
 </template>
 
 <script>
+import Breadcrumb from '../../components/common/Breadcrumb.vue'
 export default {
+  components: {
+    Breadcrumb,
+  },
   data() {
     return {
       siteList: [],
@@ -129,7 +130,7 @@ export default {
       userList: [],
       queryInfo: {
         pageNo: 0,
-        pageSize: 0
+        pageSize: 0,
       },
       totalCount: 0,
       addSiteDialogVisible: false,
@@ -141,7 +142,7 @@ export default {
         name: [{ required: true, message: '站点名不能为空', trigger: 'blur' }],
       },
       allUserDialogVisible: false,
-      siteId: ''
+      siteId: '',
     }
   },
   created() {
@@ -191,9 +192,10 @@ export default {
       this.getSiteList()
     },
     async getUser(id) {
-      this.siteId = id;
-      const res = await this.$http.get(`site/user/${id}`,
-      {params: this.queryInfo})
+      this.siteId = id
+      const res = await this.$http.get(`site/user/${id}`, {
+        params: this.queryInfo,
+      })
       if (res.data.code !== 200 || res.status !== 200) {
         this.$message.error('获取所有用户失败')
       }

@@ -6,13 +6,13 @@ import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
 import NewCase from '../views/NewCase.vue'
 import Car from '../views/Car.vue'
-import Manager from '../views/Manager.vue'
-import Site from '../views/Site.vue'
+import Manager from '../views/manage/Manager.vue'
+import Site from '../views/manage/Site.vue'
 import Total from '../views/Total.vue'
 import Assign from '../views/Assign.vue'
 import Export from '../views/Export.vue'
 import Review from '../views/Review.vue'
-import Statistic from '../views/Statistic.vue'
+import Statistic from '../views/statistics/Statistic.vue'
 
 Vue.use(VueRouter)
 
