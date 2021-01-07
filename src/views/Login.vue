@@ -4,7 +4,7 @@
       <!-- 标题区 -->
       <div class="title">
         <div class="name">
-          欢迎使用Road Traffic-ASD系统
+          国家车辆事故视频信息数据库系统
         </div>
         <div class="description">
           请登录
@@ -28,22 +28,23 @@
           </div>
         </el-form-item>
         <!-- 按钮 -->
-        <el-form-item class="btns">
+          <el-checkbox v-model="checked" @change="rememberMe" class="remember-me">记住我?</el-checkbox>
+        <el-form-item class="btns">          
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
-
-    <div class="loginFooter">
-      <span class="copyright">Copyright © 2019|蜀ICP备19013333号</span>
-    </div>
+    <foot-bar></foot-bar>
   </div>
 </template>
 
 <script>
-// import qs from 'qs'
+import FootBar from '../components/common/FootBar'
 export default {
+  components: {
+    FootBar,
+  },
   data() {
     // 验证手机号的校验规则
     var checkMobile = (rule, value, cb) => {
@@ -55,9 +56,10 @@ export default {
       cb(new Error('请输入合法的手机号'))
     }
     return {
+      checked: false,
       // 这是表单的数据绑定对象
       loginForm: {
-        telephone: '18067078082',
+        telephone: '15508067205',
         password: '123456',
         rememberMe: false,
         //code: '',
@@ -83,6 +85,9 @@ export default {
     }
   },
   methods: {
+    rememberMe(e) {
+      this.loginForm.rememberMe = e
+    },
     // 点击重置表单
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields()
@@ -90,14 +95,14 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
-        //const { data: res } = await this.$http.post('login', this.loginForm)
         const res = await this.$http.post('auth/login', this.loginForm)
-        if (res.status !== 200 || res.data.code !== 200) return this.$message.error('登录失败')
+        if (res.status !== 200 || res.data.code !== 200)
+          return this.$message.error('登录失败')
         this.$message.success('登录成功')
         window.sessionStorage.setItem('token', res.data.data)
-        console.log(res.data);
+        console.log(res.data)
         this.$router.push('/home')
-      })  
+      })
     },
   },
 }
@@ -144,10 +149,16 @@ export default {
 }
 .login_form {
   width: 100%;
-  width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
   margin-top: 40px;
+  position: relative;
+    .remember-me {
+    position: absolute;
+    left: 30px;
+    margin-top: 8px;
+    font-size: 20px;
+  }
 }
 .loginCode {
   width: 60%;
@@ -176,18 +187,5 @@ export default {
 }
 .el-form-item {
   margin: 40px 0;
-}
-.loginFooter {
-  width: 100%;
-  height: 30px;
-  position: fixed;
-  display: flex;
-  background-color: #e8eaed;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  .copyright {
-    color: gray;
-  }
 }
 </style>

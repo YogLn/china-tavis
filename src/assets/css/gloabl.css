@@ -4,6 +4,8 @@ body,
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
 }
 .el-breadcrumb {
 	margin-bottom: 15px;
@@ -11,6 +13,8 @@ body,
 }
 .el-card {
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+	height: 600px;
+	position: relative;
 }
 .el-table {
 	margin-top: 15px;
@@ -18,4 +22,20 @@ body,
 }
 .el-pagination {
 	margin-top: 15px;
+	position: absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.el-scrollbar__view el-select-dropdown__list {
+	margin-bottom: 12px !important;
+}
+.el-scrollbar__bar {
+	opacity: 1 !important;
+}
+.el-scrollbar__wrap {
+	overflow-x: hidden;
+}
+.el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+	overflow: scroll !important;
 }

@@ -3,13 +3,12 @@
     <!-- 头部区域 -->
     <el-header>
       <div>
-        <img src="../assets/img/car.png" alt="">
-        <span>China-PCS系统</span>
+        <img src="../assets/img/car.png" alt="" style="filter:brightness(150%);">
+        <span class="title">国家车辆事故视频信息数据库</span>
       </div>
-      <!-- <el-button type="info" @click="logout">我的</el-button> -->
       <el-dropdown>
         <span class="el-dropdown-link">
-          我的<i class="el-icon-arrow-down el-icon--right"></i>
+          {{this.userInfoList.username}}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="showProFileDialog">账户信息</el-dropdown-item>
@@ -22,15 +21,15 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse? '64px' : '200px'">
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+        <div class="toggle-button" style="color:#fff" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区 -->
-        <el-menu background-color="#ffffff" text-color="#000000" active-text-color="#000000" :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
+        <el-menu background-color="#324157" text-color="#BFCBC0" active-text-color="#349beb" :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
           <!-- 一级菜单 -->
           <el-menu-item v-for="(item,index) in menulist" :key="index" :index="'/' + item.path">
             <!-- 图标 -->
-            <i :class="item.icon" style="color:#000000"></i>
+            <i :class="item.icon" style="color:#fff"></i>
             <!-- 文本 -->
-            <span slot="title">{{item.menuName}}</span>
+            <span slot="title" class="menuName">{{item.menuName}}</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -40,6 +39,8 @@
         </router-view>
       </el-main>
     </el-container>
+    <!-- 底部区域 -->
+    <foot-bar></foot-bar>
 
     <!-- 个人信息对话框 -->
     <el-dialog title="账户信息" :visible.sync="profileDialogVisible" width="30%">
@@ -53,7 +54,10 @@
         <el-form-item label="邮箱">
           <el-input v-model="userInfoList.email"></el-input>
         </el-form-item>
-        <el-form-item label="账户类型" >
+        <el-form-item label="站点">
+          <el-input v-model="userInfoList.site.name" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="账户类型">
           <el-input v-model="userInfoList.roles[0].description" disabled></el-input>
         </el-form-item>
         <el-form-item label="个人简介">
@@ -72,23 +76,25 @@
         <el-form-item label="旧密码" prop="oldpass">
           <el-input type="password" v-model="pwdForm.oldpass" autocomplete="off"></el-input>
         </el-form-item>
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="pwdForm.pass" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="pwdForm.checkPass" autocomplete="off"></el-input>
-          </el-form-item>
+        <el-form-item label="密码" prop="pass">
+          <el-input type="password" v-model="pwdForm.pass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="pwdForm.checkPass" autocomplete="off"></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="changePwdDialogCancel">取 消</el-button>
-        <el-button type="primary" @click="changUserInfo">确 定</el-button>
+        <el-button type="primary" @click="changUserPwd">确 定</el-button>
       </span>
     </el-dialog>
   </el-container>
 </template>
 
 <script>
+import FootBar from '../components/common/FootBar.vue'
 export default {
+  components: { FootBar },
   data() {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
@@ -109,14 +115,42 @@ export default {
           icon: 'iconfont iconxinjian',
           path: 'newcase',
         },
-        { id: 2, menuName: '数据总览', icon: 'iconfont iconshujuzonglan' },
-        { id: 3, menuName: '系统数据统计', icon: 'iconfont iconxitongguanli' },
-        { id: 4, menuName: '场景分类目录', icon: 'iconfont iconmulu' },
-        { id: 5, menuName: '创建用户', icon: 'iconfont iconchuangjianyonghu' },
+        { id: 2, menuName: '系统数据统计', icon: 'iconfont iconshujuzonglan', path: 'statistic' },
         {
-          id: 6,
+          id: 3,
+          menuName: '数据总览',
+          icon: 'iconfont iconxitongguanli',
+          path: 'total',
+        },
+        {
+          id: 5,
           menuName: '管理用户',
           icon: 'iconfont iconguanliyonghuguanli',
+          path: 'manager',
+        },
+        {
+          id: 6,
+          menuName: '管理站点',
+          icon: 'iconfont iconchuangjianyonghu',
+          path: 'site',
+        },
+        {
+          id: 7,
+          menuName: '分配权限',
+          icon: 'iconfont iconxinjian',
+          path: 'assign',
+        },
+        {
+          id: 8,
+          menuName: '数据导出',
+          icon: 'iconfont iconxinjian',
+          path: 'export',
+        },
+        {
+          id: 9,
+          menuName: '案例审核',
+          icon: 'iconfont iconmulu',
+          path: 'review',
         },
       ],
       isCollapse: false,
@@ -148,13 +182,11 @@ export default {
   },
   created() {
     this.getUserInfo()
-    //   (this.activePath = window.sessionStorage.getItem('activePath'))
   },
   methods: {
     async logout() {
-      console.log(window.sessionStorage.getItem('token').toString());
       const res = await this.$http.post('auth/logout')
-      if(res.status !==200 || res.data.code !== 200) {
+      if (res.status !== 200 || res.data.code !== 200) {
         this.$message.error('退出失败')
       }
       window.sessionStorage.clear()
@@ -172,10 +204,13 @@ export default {
     showProFileDialog() {
       this.profileDialogVisible = true
     },
+    /*
+     **
+     */
     async getUserInfo() {
       const { data: res } = await this.$http.get('user')
       if (res.code !== 200) {
-        this.$message.error('获取用户信息失败')
+        this.$message.error('获取用户信息失败res.data')
       }
       this.userInfoList = res.data
     },
@@ -196,16 +231,16 @@ export default {
       this.$refs.pwdFormRef.resetFields()
       this.changPwdDialogVisible = false
     },
-    changUserInfo() {
-      this.$refs.pwdFormRef.validate( async (valid) => {
+    changUserPwd() {
+      this.$refs.pwdFormRef.validate(async (valid) => {
         if (!valid) return
         const res = await this.$http.put('user/password', {
           newPassword: this.pwdForm.pass,
           oldPassword: this.pwdForm.oldpass,
         })
-        console.log(this.pwdForm.oldpass);
-        console.log(res);
-        if(res.status !==200 || res.data.code !== 200) {
+        console.log(this.pwdForm.oldpass)
+        console.log(res)
+        if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error('修改密码失败')
         }
         this.logout()
@@ -222,32 +257,21 @@ export default {
   height: 100%;
 }
 .el-header {
-  background-color: #39557a;
-}
-.el-aside {
-  background-color: #ffffff;
-  .el-menu {
-    border-right: none;
-  }
-}
-.el-main {
-  background-color: #eaedf1;
-}
-.el-header {
   img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-left: 10px;
-    background-color: #39557a;
+    background-color: #273144;
   }
-  background-color: #39557a;
+  background-color: #273144;
   display: flex;
   justify-content: space-between;
-  padding-left: 0;
+  padding: 0;
   align-items: center;
   color: #fff;
-  font-size: 20px;
+  font-size: 16px;
+  height: 50px !important;
   > div {
     display: flex;
     align-items: center;
@@ -258,21 +282,39 @@ export default {
   .el-dropdown-link {
     cursor: pointer;
     color: #fff;
+    padding-right: 20px;
   }
   .el-icon-arrow-down {
     font-size: 12px;
   }
 }
+.el-aside {
+  background-color: #324157;
+  .el-menu {
+    border-right: none;
+  }
+}
+.el-main {
+  background-color: #eaedf1;
+  padding-bottom: 0;
+}
+
 .iconfont {
   margin-right: 10px;
 }
 .toggle-button {
-  background-color: #ffffff;
+  background-color: #324157;
   font-size: 10px;
   line-height: 24px;
   color: #000000;
   text-align: center;
   letter-spacing: 0.2em;
   cursor: pointer;
+}
+.title {
+  font-size: 18px;
+}
+.menuName {
+  font-size: 16px;
 }
 </style>

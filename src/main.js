@@ -14,29 +14,25 @@ axios.defaults.baseURL = 'http://localhost:8080/api/'
 axios.defaults.headers = {
   'Content-Type': 'application/json', //如果写成contentType会报错
 }
-// const instance = axios.create({
-//   baseURL: "http://localhost:8080/api/",
-//   headers: {
-//     // 与后端约定的
-//     'Content-Type': 'application/json;charset=UTF-8',
-//   },
-// })
-// Vue.prototype.$http = instance
 Vue.prototype.$http = axios
-
 Vue.config.productionTip = false
 
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   // 固定写法，在最后return config
   return config 
+},error => {
+  console.log(error);
 })
-// axios.interceptors.request.use(config => {
-//   console.log(config);
-//   config.headers.Authorization = window.sessionStorage.getItem('token')
-//   console.log(config);
-//   return config
-// })
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  console.log(error);
+  // window.alert('登录失效，请重新登录')
+  // router.push('/login')
+  return Promise.reject(error);
+});
 
 new Vue({
   router,
