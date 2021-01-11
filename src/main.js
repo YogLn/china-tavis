@@ -10,6 +10,10 @@ import './assets/fonts/iconfont.css'
 import './assets/css/gloabl.css'
 import axios from 'axios'
 
+// 引入v-charts
+import VCharts from 'v-charts'
+Vue.use(VCharts)
+
 axios.defaults.baseURL = 'http://localhost:8080/api/'
 axios.defaults.headers = {
   'Content-Type': 'application/json', //如果写成contentType会报错
@@ -19,18 +23,25 @@ Vue.config.productionTip = false
 
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
+  config.headers.Captcha = window.sessionStorage.getItem('captcha')
   // 固定写法，在最后return config
-  return config 
-},error => {
+  return config
+}, error => {
   console.log(error);
 })
 
 axios.interceptors.response.use(function (response) {
+  window.sessionStorage.setItem('captcha', response.headers.captcha)
   return response;
 }, function (error) {
-  console.log(error);
-  // window.alert('登录失效，请重新登录')
-  // router.push('/login')
+  if (error.response.data.status == 401) {
+    window.alert('登录失效，请重新登录')
+    router.push('/login')
+  }
+  if (error.response.data.status == 403) {
+    window.alert('无权访问,请重新登录')
+    router.push('/login')
+  }
   return Promise.reject(error);
 });
 

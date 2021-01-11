@@ -4,7 +4,7 @@
       <!-- 标题区 -->
       <div class="title">
         <div class="name">
-          国家车辆事故视频信息数据库系统
+          中国道路交通事故视频信息系统
         </div>
         <div class="description">
           请登录
@@ -23,8 +23,8 @@
         <!-- 验证码 -->
         <el-form-item prop="code" class="loginCode">
           <el-input v-model="loginForm.code"></el-input>
-          <div class="imgCode">
-            <img src="" alt="">
+          <div class="imgCode" @click="getCode">
+            <img :src="captchaImg" alt="换一张">
           </div>
         </el-form-item>
         <!-- 按钮 -->
@@ -45,11 +45,14 @@ export default {
   components: {
     FootBar,
   },
+  created() {
+    this.getCode()
+  },
   data() {
     // 验证手机号的校验规则
     var checkMobile = (rule, value, cb) => {
       // 验证手机号的正则表达式
-      const regMobile = /^(0|86|17951)?(13[0-9]|15[0123456789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+      const regMobile = /^1[3|4|5|7|8|9][0-9]{9}$/
       if (regMobile.test(value)) {
         return cb()
       }
@@ -62,8 +65,10 @@ export default {
         telephone: '15508067205',
         password: '123456',
         rememberMe: false,
-        //code: '',
+        code: '',
       },
+      // 验证码图片
+      captchaImg: '',
       // 这是表单的验证规则对象
       loginFormRules: {
         //验证用户名是否合法
@@ -85,6 +90,13 @@ export default {
     }
   },
   methods: {
+    // 获取验证码
+    async getCode() {
+      let res= await this.$http.get('auth/captcha',{
+        responseType: 'blob'
+      })
+      this.captchaImg = window.URL.createObjectURL(res.data)
+    },
     rememberMe(e) {
       this.loginForm.rememberMe = e
     },
@@ -119,12 +131,13 @@ export default {
   display: flex;
 }
 .login_box {
-  width: 380px;
+  width: 360px;
   height: 450px;
-  background-color: #beceda;
+  // background-color: #beceda;
+  background: rgba(255,255,255,.6);
   border-radius: 3px;
   position: absolute;
-  left: calc(80% - 200px);
+  left: calc(80% - 120px);
   top: calc(50% - 225px);
   .title {
     width: 100%;
@@ -161,8 +174,11 @@ export default {
   }
 }
 .loginCode {
-  width: 60%;
-  height: 60px;
+  width: 120px;
+  height: 70px;
+  .el-input {
+    width: 150px;
+  }
 }
 .loginCode {
   width: 60%;
@@ -170,11 +186,11 @@ export default {
   margin-top: 8px;
 }
 .imgCode {
-  width: 105px;
+  width: 120px;
   height: 45px;
   position: absolute;
-  margin-left: 110%;
-  margin-top: -50px;
+  margin-left: 100%;
+  margin-top: -45px;
   cursor: pointer;
 }
 .imgCode img {

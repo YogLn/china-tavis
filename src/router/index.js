@@ -5,10 +5,9 @@ import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
 import NewCase from '../views/NewCase.vue'
-import Car from '../views/Car.vue'
 import Manager from '../views/manage/Manager.vue'
 import Site from '../views/manage/Site.vue'
-import Total from '../views/Total.vue'
+import Total from '../views/data/Total.vue'
 import Assign from '../views/Assign.vue'
 import Export from '../views/Export.vue'
 import Review from '../views/Review.vue'
@@ -32,7 +31,6 @@ const routes = [
 		children: [
       { path: '/welcome', component: Welcome },
       { path: '/newcase', component: NewCase },
-      { path: '/car', component: Car },
       { path: '/manager', component: Manager },
       { path: '/site', component: Site },
       { path: '/total', component: Total },

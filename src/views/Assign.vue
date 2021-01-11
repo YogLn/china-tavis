@@ -13,10 +13,11 @@
         <el-table-column prop="site" label="站点">
         </el-table-column>
         <el-table-column prop="roles" label="角色类型">
+          审核员
         </el-table-column>
         <el-table-column prop="email" label="邮箱">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="showAssignDialog(scope.row.id)">分 配</el-button>
             <el-button type="warning" size="mini" @click="showEditAssignDialog(scope.row.id)">修 改</el-button>

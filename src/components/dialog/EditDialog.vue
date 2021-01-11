@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="案例详情" :visible.sync="visible" width="80%">
+  <el-dialog title="案例详情" :visible.sync="visible" width="80%" class="abow_dialog">
     <div class="dialog">
       <el-alert title="请将修改完的页面进行提交后再点击下个页面" type="warning" show-icon>
       </el-alert>
@@ -2065,4 +2065,5 @@ export default {
 .tab-scroll {
   height: 400px;
 }
+
 </style>

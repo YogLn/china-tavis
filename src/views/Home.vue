@@ -4,7 +4,7 @@
     <el-header>
       <div>
         <img src="../assets/img/car.png" alt="" style="filter:brightness(150%);">
-        <span class="title">国家车辆事故视频信息数据库</span>
+        <span class="title">China-TAVIS系统</span>
       </div>
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -23,12 +23,10 @@
       <el-aside :width="isCollapse? '64px' : '200px'">
         <div class="toggle-button" style="color:#fff" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区 -->
-        <el-menu background-color="#324157" text-color="#BFCBC0" active-text-color="#349beb" :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
+        <el-menu background-color="#00576B" text-color="#BFCBC0" active-text-color="#349beb" :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
           <!-- 一级菜单 -->
-          <el-menu-item v-for="(item,index) in menulist" :key="index" :index="'/' + item.path">
-            <!-- 图标 -->
+          <el-menu-item v-for="(item,index) in menulist" :key="index" :index="'/' + item.path" v-show="item.isShow">
             <i :class="item.icon" style="color:#fff"></i>
-            <!-- 文本 -->
             <span slot="title" class="menuName">{{item.menuName}}</span>
           </el-menu-item>
         </el-menu>
@@ -107,50 +105,64 @@ export default {
       }
     }
     return {
+      roleType: '',
       // 左侧菜单数据
       menulist: [
         {
           id: 1,
           menuName: '新建案例数据',
-          icon: 'iconfont iconxinjian',
+          icon: 'iconfont iconcustomreport-add',
           path: 'newcase',
+          isShow: true,
         },
-        { id: 2, menuName: '系统数据统计', icon: 'iconfont iconshujuzonglan', path: 'statistic' },
+        {
+          id: 2,
+          menuName: '数据总览',
+          icon: 'iconfont iconzonglan1',
+          path: 'total',
+          isShow: true,
+        },
         {
           id: 3,
-          menuName: '数据总览',
-          icon: 'iconfont iconxitongguanli',
-          path: 'total',
+          menuName: '系统数据统计',
+          icon: 'iconfont icontongji1',
+          path: 'statistic',
+          isShow: true,
+        },
+        {
+          id: 4,
+          menuName: '数据导出',
+          icon: 'iconfont icondaochu1',
+          path: 'export',
+          isShow: true,
         },
         {
           id: 5,
-          menuName: '管理用户',
-          icon: 'iconfont iconguanliyonghuguanli',
-          path: 'manager',
+          menuName: '分配案例',
+          icon: 'iconfont iconfenpei',
+          path: 'assign',
+          isShow: true,
         },
         {
           id: 6,
-          menuName: '管理站点',
-          icon: 'iconfont iconchuangjianyonghu',
-          path: 'site',
+          menuName: '案例审核',
+          icon: 'iconfont iconcheck',
+          path: 'review',
+          isShow: true,
         },
         {
           id: 7,
-          menuName: '分配案例',
-          icon: 'iconfont iconxinjian',
-          path: 'assign',
+          menuName: '管理用户',
+          icon: 'iconfont iconyonghuguanli1',
+          path: 'manager',
+          isShow: true,
         },
         {
           id: 8,
-          menuName: '数据导出',
-          icon: 'iconfont iconxinjian',
-          path: 'export',
-        },
-        {
-          id: 9,
-          menuName: '案例审核',
-          icon: 'iconfont iconmulu',
-          path: 'review',
+          menuName: '管理站点',
+          icon: 'iconfont iconguanli-08',
+          path: 'site',
+          isShow: true,
         },
       ],
       isCollapse: false,
@@ -212,7 +224,23 @@ export default {
       if (res.code !== 200) {
         this.$message.error('获取用户信息失败res.data')
       }
+      this.roleType = res.data.roles[0].name
       this.userInfoList = res.data
+      if (res.data.roles[0].name == 'AUDITOR') {
+        this.menulist[2].isShow = false
+        this.menulist[3].isShow = false
+        this.menulist[4].isShow = false
+        this.menulist[6].isShow = false
+        this.menulist[7].isShow = false
+      }
+      if (res.data.roles[0].name == 'COLLECTOR') {
+        this.menulist[2].isShow = false
+        this.menulist[3].isShow = false
+        this.menulist[4].isShow = false
+        this.menulist[5].isShow = false
+        this.menulist[6].isShow = false
+        this.menulist[7].isShow = false
+      }
     },
     async changeUserInfo() {
       const res = await this.$http.put('user', {
@@ -262,9 +290,9 @@ export default {
     height: 40px;
     border-radius: 50%;
     margin-left: 10px;
-    background-color: #273144;
+    background-color: #00576B;
   }
-  background-color: #273144;
+  background-color: #00576B;
   display: flex;
   justify-content: space-between;
   padding: 0;
@@ -282,14 +310,15 @@ export default {
   .el-dropdown-link {
     cursor: pointer;
     color: #fff;
-    padding-right: 20px;
+    padding-right: 30px;
   }
   .el-icon-arrow-down {
     font-size: 12px;
   }
 }
 .el-aside {
-  background-color: #324157;
+  background-color: #00576B;
+  // background-color: #324157;
   .el-menu {
     border-right: none;
   }
@@ -303,7 +332,8 @@ export default {
   margin-right: 10px;
 }
 .toggle-button {
-  background-color: #324157;
+  background-color:#01404e;
+  // background-color: #324157;
   font-size: 10px;
   line-height: 24px;
   color: #000000;
@@ -312,7 +342,8 @@ export default {
   cursor: pointer;
 }
 .title {
-  font-size: 18px;
+  font-size: 22px;
+  letter-spacing:3px;
 }
 .menuName {
   font-size: 16px;

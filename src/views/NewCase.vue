@@ -2246,12 +2246,11 @@ export default {
         this.ReleaseCheck()
         // 新建案例执行
         if (!this.isRecovery) {
-          console.log(this.partInfoId - 1)
           let id = this.partInfoId - 1
-          console.log(this.wayInfo)
           this.creatRoadList[id] = JSON.parse(JSON.stringify(this.wayInfo))
           // 拷贝
           this.wayInfo1 = this.creatRoadList[0]
+
           this.wayInfo.r6002 = this.partInfoId
           this.wayInfo.r6001 = this.totalInfo.g1001
         }
@@ -2422,6 +2421,7 @@ export default {
         }
         this.wayInfo.r6002 = id
       } else {
+        console.log(this.creatRoadList);
         this.wayInfo = this.creatRoadList[id - 1]
         this.wayInfo.r6002 = id
       }
@@ -2613,13 +2613,13 @@ export default {
 .reset {
   position: absolute;
   top: 40px;
-  right: 10px;
+  right: 20 px;
   z-index: 1;
   align-items: center;
 }
 .restore {
   position: absolute;
-  right: 120px;
+  right: 130px;
   position: absolute;
   top: 40px;
   z-index: 1;

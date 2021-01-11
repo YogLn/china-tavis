@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="案例详情" :visible.sync="visible" width="80%">
+  <el-dialog title="案例详情" :visible.sync="visible" width="80%" class="abow_dialog">
     <div class="dialog">
       <el-tabs>
         <el-tab-pane label="总体信息">
