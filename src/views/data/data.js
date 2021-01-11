@@ -1,11 +1,8 @@
 const dataExport = {
   // 行人
   person: [
-    { label: '参与方编号', name: 'participantNumber' },
-    { label: '案例编号', name: 'p4001' },
     { label: '性别', name: 'p4002' },
     { label: '人员伤亡情况', name: 'p4003' },
-    { label: '高度（身高）', name: 'p4004' },
     { label: '参与方颜色（衣着颜色）', name: 'p4005' },
     { label: '黑暗处或夜间衣物可见性', name: 'p4006' },
     { label: '事故发生地点', name: 'p4007' },
@@ -15,7 +12,6 @@ const dataExport = {
       name: 'p4009',
     },
     { label: '行人运动状态', name: 'p4010' },
-    { label: '行人速度（km/h）', name: 'p4011' },
     {
       label: '行人被撞部位',
       name: 'p4012',
@@ -47,18 +43,11 @@ const dataExport = {
   ],
   // 二轮车
   twoWheel: [
-    { label: '参与方编号', name: 'participantNumber' },
-    { label: '案例编号', name: 't5001' },
     { label: '车辆具体类型', name: 't5002' },
     { label: '参与方颜色', name: 't5003' },
-    { label: '长度', name: 't5004' },
-    { label: '宽度', name: 't5005' },
-    { label: '高度', name: 't5006' },
-    { label: '二/三轮车载重', name: 't5007' },
     { label: '主要过错1', name: 't5008' },
     { label: '主要过错2', name: 't5009' },
     { label: '二轮车运动方向', name: 't5010' },
-    { label: '二轮车速度（km/h）', name: 't5011' },
     { label: '二轮车第一碰撞位置相对自身方位', name: 't5012' },
     { label: '骑车人性别', name: 't5013' },
     { label: '衣着颜色', name: 't5014' },
@@ -82,22 +71,12 @@ const dataExport = {
   ],
   // 车
   car: [
-    { label: '案例编号', name: 'v3001' },
-    { label: '参与方编号', name: 'v3002' },
+
     { label: '车辆类型', name: 'v3003' },
     { label: '是否有EDR报告', name: 'v3004' },
-    { label: '车辆品牌', name: 'v3005' },
-    { label: 'VIM', name: 'v3006' },
     { label: '车辆顺坏情况', name: 'v3007' },
     { label: '车辆人员伤亡情况', name: 'v3008' },
     { label: '参与方颜色', name: 'v3009' },
-    { label: '长度(mm)', name: 'v3010' },
-    { label: '宽度(mm)', name: 'v3011' },
-    { label: '高度(mm)', name: 'v3012' },
-    { label: '整备质量', name: 'v3013' },
-    { label: '轴距', name: 'v3014' },
-    { label: '前轮距(mm)', name: 'v3015' },
-    { label: '后轮距(mm)', name: 'v3016' },
     { label: '主要过错1', name: 'v3017' },
     { label: '主要过错2', name: 'v3018' },
     { label: '是否有优先权', name: 'v3019' },
@@ -105,8 +84,6 @@ const dataExport = {
     { label: '事故前车辆要避撞的对向', name: 'v3021' },
     { label: '事故前车辆的避撞行为', name: 'v3022' },
     { label: '是否有视野盲区（车外）', name: 'v3023' },
-    { label: '车辆初始速度', name: 'v3024' },
-    { label: '碰撞时速度', name: 'v3025' },
     { label: '事故发生前车辆运动类型', name: 'v3026' },
     { label: '开始反应到碰撞前是否采取转向措施', name: 'v3027' },
     { label: '是否使用安全带', name: 'v3028' },
@@ -141,9 +118,7 @@ const dataExport = {
   ],
   // 道路信息
   road: [
-    { label: '案例编号', name: 'r6001' },
-    { label: '参与方编号', name: 'r6002' },
-    { label: '参与方所在道路名称', name: 'r6003' },
+
     { label: '总体机动车道数（条）', name: 'r6004' },
     { label: '参与方行驶方向机动车道数（条）', name: 'r6005' },
     { label: '参与方行驶方向对向机动车道数', name: 'r6006' },
@@ -152,9 +127,6 @@ const dataExport = {
     { label: '对向机动车道隔离形式', name: 'r6009' },
     { label: '本侧机非车道隔离形式', name: 'r6010' },
     { label: '对向机动车道侧机非车道隔离形式', name: 'r6011' },
-    { label: '道路总宽度', name: 'r6012' },
-    { label: '所在车道的宽度', name: 'r6013' },
-    { label: '高允许车速', name: 'r6014' },
     { label: '现场有何种交通警告标志', name: 'r6015' },
     { label: '现场有何种交通禁令标志', name: 'r6016' },
     { label: '道路的线形', name: 'r6017' },
@@ -198,28 +170,21 @@ const dataExport = {
   ],
   // 环境信息
   env: [
-    { label: '案例编号', name: 'e2001' },
     { label: '路段信息', name: 'e2002' },
     { label: '天气', name: 'e2003' },
-    { label: '事故具体时间', name: 'e2004' },
     { label: '日间太阳光线', name: 'e2005' },
     { label: '雾天能见度', name: 'e2006' },
-    { label: '摄氏温度', name: 'e2007' },
     { label: '照明情况', name: 'e2008' },
   ],
   // 总体信息
   total: [
-    { label: '案例编号', name: 'g1001' },
-    { label: '委托号', name: 'g1002' },
+
     { label: '参与方总数', name: 'g1003' },
     { label: '事故形态', name: 'g1004' },
     { label: '事故分类', name: 'g1005' },
     { label: '障碍物类型', name: 'g1006' },
     { label: '视频类型', name: 'g1007' },
-    { label: '参与方一视角下参与方二的走向', name: 'g1008' },
-    { label: '经度-东经（度）', name: 'g1009' },
-    { label: '纬度-北纬（度）', name: 'g1010' },
-    { label: '事故关注点', name: 'g1011' },
+    { label: '参与方一视角下参与方二的走向', name: 'g1008' }
   ],
 }
 export default dataExport

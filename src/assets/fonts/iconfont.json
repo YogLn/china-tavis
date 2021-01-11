@@ -6,6 +6,97 @@
   "description": "taffic",
   "glyphs": [
     {
+      "icon_id": "18789822",
+      "name": "审核",
+      "font_class": "check",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "653927",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "3033183",
+      "name": "账号",
+      "font_class": "ddcaf",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "8407195",
+      "name": "新建",
+      "font_class": "customreport-add",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "9199728",
+      "name": "统计",
+      "font_class": "tongji1",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "10178869",
+      "name": "导出",
+      "font_class": "daochu",
+      "unicode": "e7f1",
+      "unicode_decimal": 59377
+    },
+    {
+      "icon_id": "13369525",
+      "name": "分配",
+      "font_class": "fenpei",
+      "unicode": "e7a7",
+      "unicode_decimal": 59303
+    },
+    {
+      "icon_id": "13730458",
+      "name": "导出",
+      "font_class": "daochu1",
+      "unicode": "e6f7",
+      "unicode_decimal": 59127
+    },
+    {
+      "icon_id": "15569807",
+      "name": "审核",
+      "font_class": "shenhe",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "16095065",
+      "name": "密码",
+      "font_class": "mima",
+      "unicode": "e716",
+      "unicode_decimal": 59158
+    },
+    {
+      "icon_id": "17244886",
+      "name": "站点管理",
+      "font_class": "guanli-08",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "18310959",
+      "name": "用户管理",
+      "font_class": "yonghuguanli1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "18730906",
+      "name": "总览",
+      "font_class": "zonglan1",
+      "unicode": "e73b",
+      "unicode_decimal": 59195
+    },
+    {
       "icon_id": "761279",
       "name": "mima",
       "font_class": "pwd",
@@ -32,13 +123,6 @@
       "font_class": "shujuzonglan",
       "unicode": "e640",
       "unicode_decimal": 58944
-    },
-    {
-      "icon_id": "8142394",
-      "name": "数据总览",
-      "font_class": "shujuzonglan1",
-      "unicode": "e641",
-      "unicode_decimal": 58945
     },
     {
       "icon_id": "10339950",

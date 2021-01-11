@@ -126,7 +126,6 @@ export default {
       const { data: res } = await this.$http.get('accident/check_info', {
         params: this.queryInfo,
       })
-      console.log(res)
       this.queryInfo.pageNo = res.data.current
       this.queryInfo.pageSize = res.data.size
       this.total = res.data.total

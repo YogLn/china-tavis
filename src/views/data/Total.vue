@@ -4,9 +4,10 @@
     <breadcrumb title="数据总览"></breadcrumb>
     <el-card>
       <!-- 搜索区域 -->
-      <search @getDataList="getSearchData" @showDialog="showSeleceDialog" inputText="请输入案例编号"></search>
+      <search @getDataList="getSearchData" @showDialog="showDialog" @getAllCase="getAllCase" inputText="请输入案例编号">
+      </search>
       <!-- 表格 -->
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" v-loading="tableLoading">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" v-loading="loading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="caseNumber" label="案例编号" width="120px">
@@ -39,7 +40,7 @@
               <el-button type="info" icon="el-icon-more" size="mini" @click="showDetailDialog(scope.row.id)" :disabled="checkInfo(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip content="修改案例" placement="top" :enterable="false" effect="dark">
-                <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" :disabled="checkEdit(scope.row.userId)"></el-button>
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" :disabled="checkEdit(scope.row.userId)"></el-button>
             </el-tooltip>
             <el-tooltip content="删除案例" placement="top" :enterable="false" effect="dark">
               <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteCase(scope.row.caseNumber)" :disabled="checkDelete(scope.row.userId)"></el-button>
@@ -48,7 +49,7 @@
               <el-button type="success" icon="el-icon-check" @click="submitCase(scope.row.id)" :disabled="checkSubmit(scope.row.userId)" size="mini"></el-button>
             </el-tooltip>
           </template>
-        </el-table-column> 
+        </el-table-column>
       </el-table>
       <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pageNo" :page-sizes="[5, 10, 15, 20]" :page-size="queryInfo.pageSize"
         layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
@@ -56,59 +57,7 @@
     </el-card>
 
     <!-- 组合筛选对话框 -->
-    <el-dialog title="组合筛选" :visible.sync="selectDialogVisible" width="80%" append-to-body>
-      <div class="el-dialog-div" v-if="isShow1">
-        <el-collapse v-model="activeName" accordion>
-          <el-collapse-item title="总体信息" name="1">
-            <el-checkbox-group v-model="total_value" @change="sendTotal">
-              <el-checkbox v-for="(item,index) in total" :key="index" :label="item.label" boder :name="item.name" :value="item.label" border></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-          <el-collapse-item title="环境信息" name="2">
-            <el-checkbox-group v-model="env_value" @change="sendEnv">
-              <el-checkbox v-for="(item,index) in env" :key="index" :label="item.label" border :name="item.name"></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-          <el-collapse-item title="道路信息" name="3">
-            <el-checkbox-group v-model="road_value" @change="sendRoad">
-              <el-checkbox v-for="(item,index) in road" :key="index" :label="item.label" border :name="item.name"></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-          <el-collapse-item title="参与方信息(车)" name="4">
-            <el-checkbox-group v-model="car_value" @change="sendCar">
-              <el-checkbox v-for="(item,index) in car" :key="index" :label="item.label" border :name="item.name"></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-          <el-collapse-item title="参与方信息(二轮车)" name="5">
-            <el-checkbox-group v-model="twoWheel_value" @change="sendTwowheel">
-              <el-checkbox v-for="(item,index) in twoWheel" :key="index" :label="item.label" border :name="item.name"></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-          <el-collapse-item title="参与方信息(人)" name="6">
-            <el-checkbox-group v-model="person_value" @change="sendPerson">
-              <el-checkbox v-for="(item,index) in person" :key="index" :label="item.label" border :name="item.name"></el-checkbox>
-            </el-checkbox-group>
-          </el-collapse-item>
-        </el-collapse>
-      </div>
-
-      <div class="el-dialog-div" v-if="isShow2">
-        <el-form ref="filterFormRef" :model="filterForm" label-width="120px">
-          <el-row type="flex" class="row-bg">
-            <el-col :span="12">
-              <el-form-item :label="item + ''" v-for="(item,index) in allFilterVal" :key="index">
-                <el-input v-model="filterForm.name"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="cancelDialog">取 消</el-button>
-        <el-button type="primary" @click="submitDialog">确 定</el-button>
-      </span>
-    </el-dialog>
-
+    <total-dialog v-if="show" ref="dialogRef"></total-dialog>
     <!-- 案例详情对话框 -->
     <detail-form :visible="detailsDialogVisible" ref="DetailFormRef"></detail-form>
 
@@ -127,20 +76,27 @@
 </template>
 
 <script>
-import Breadcrumb from '../components/common/Breadcrumb.vue'
-import Search from '../components/common/Search.vue'
-import DetailForm from '../components/dialog/DetailForm'
-import dataExport from '../components/export/export'
-import EditForm from '../components/dialog/EditDialog'
+import Breadcrumb from '../../components/common/Breadcrumb.vue'
+import Search from '../../components/common/Search.vue'
+import DetailForm from '../../components/dialog/DetailForm'
+import EditForm from '../../components/dialog/EditDialog'
+
+import bus from './bus'
+import Choose from './Choose.vue'
+import TotalDialog from './TotalDialog.vue'
 export default {
   components: {
     Breadcrumb,
     Search,
     EditForm,
     DetailForm,
+    Choose,
+    TotalDialog,
   },
   data() {
     return {
+      // 组合筛选
+      show: false,
       allCaseList: [],
       query: '',
       check_value: [],
@@ -151,29 +107,10 @@ export default {
         pageSize: 5,
       },
       totalCount: 0,
-      // 组合筛选
-      selectDialogVisible: false,
-      activeName: '1',
-      total: [],
-      total_value: [],
-      env: [],
-      env_value: [],
-      road: [],
-      road_value: [],
-      car: [],
-      car_value: [],
-      twoWheel: [],
-      twoWheel_value: [],
-      person: [],
-      person_value: [],
-      // 多选框筛选值
-      allFilterVal: [],
 
       filterForm: {
         name: '',
       },
-      isShow1: true,
-      isShow2: false,
       // 案例详情对话框
       detailsDialogVisible: false,
       editDialogVisible: false,
@@ -183,16 +120,84 @@ export default {
       // 个人信息
       roleType: '',
       roleId: '',
-      // 案例
-
       // 加载
-      tableLoading: true,
+      loading: true,
+
+      // 组合筛选
+      filter: {
+        pageNo: 1,
+        pageSize: 5,
+      },
+      accident: {},
+      environment: {},
+      road: {},
+      pedestrian: {},
+      car: {},
+      twoWheeler: {},
     }
   },
   created() {
     this.getCaseList()
-    this.init()
     this.getUerInfo()
+    bus.$on('getResult', (msg) => {
+      this.closeDialog()
+      this.filter = {
+        pageNo: 1,
+        pageSize: 5,
+      }
+      for (let key in msg) {
+        if (key.indexOf('g') === 0) {
+          this.accident[key] = msg[key]
+        }
+        if (key.indexOf('e') === 0) {
+          this.environment[key] = msg[key]
+        }
+        if (key.indexOf('r') === 0) {
+          this.road[key] = msg[key]
+        }
+        if (key.indexOf('p') === 0) {
+          this.pedestrian[key] = msg[key]
+        }
+        if (key.indexOf('v') === 0) {
+          this.car[key] = msg[key]
+        }
+        if (key.indexOf('t') === 0) {
+          this.twoWheeler[key] = msg[key]
+        }
+      }
+      /**/
+      if (this.accident != null) {
+        for (let key in this.accident) {
+          this.filter['accident'] = this.accident
+        }
+      }
+      if (this.environment != null) {
+        for (let key in this.environment) {
+          this.filter['environment'] = this.environment
+        }
+      }
+      if (this.road != null) {
+        for (let key in this.road) {
+          this.filter['road'] = this.road
+        }
+      }
+      if (this.pedestrian != null) {
+        for (let key in this.pedestrian) {
+          this.filter['pedestrian'] = this.pedestrian
+        }
+      }
+      if (this.car != null) {
+        for (let key in this.car) {
+          this.filter['car'] = this.car
+        }
+      }
+      if (this.twoWheeler != null) {
+        for (let key in this.twoWheeler) {
+          this.filter['twoWheeler'] = this.twoWheeler
+        }
+      }
+      this.getFilter()
+    })
   },
   methods: {
     checkInfo(opt) {
@@ -252,6 +257,23 @@ export default {
       this.roleType = res.data.roles[0].name
       this.roleId = res.data.id
     },
+    async getAllCase() {
+      const res = await this.$http.get('total/search', {
+        params: {
+          caseNumber: '',
+          pageNo: 1,
+          pageSize: 5,
+        },
+      })
+      if (res.data.code !== 200 || res.status !== 200) {
+        return this.$message.error('获取案例列表失败')
+      }
+      this.allCaseList = res.data.data.data
+      this.queryInfo.pageNo = res.data.data.pageNo
+      this.queryInfo.pageSize = res.data.data.pageSize
+      this.totalCount = res.data.data.totalCount
+      this.loading = false
+    },
     async getCaseList() {
       const res = await this.$http.get('total/search', {
         params: this.queryInfo,
@@ -263,7 +285,7 @@ export default {
       this.queryInfo.pageNo = res.data.data.pageNo
       this.queryInfo.pageSize = res.data.data.pageSize
       this.totalCount = res.data.data.totalCount
-      this.tableLoading = false
+      this.loading = false
     },
     // 搜索
     async getSearchData(str) {
@@ -271,11 +293,35 @@ export default {
       const { data: res } = await this.$http.get('total/search', {
         params: this.queryInfo,
       })
-      console.log(res)
       this.allCaseList = res.data.data
     },
-    showSeleceDialog() {
-      this.selectDialogVisible = true
+    /**
+     * 组合筛选对话框
+     */
+    showDialog() {
+      this.show = true
+      this.$nextTick(() => {
+        this.$refs.dialogRef.show()
+      })
+    },
+    closeDialog() {
+      this.show = false
+      bus.$emit('close')
+    },
+    async getFilter() {
+      const { data: res } = await this.$http.post('total/filter', this.filter)
+      if (res.code !== 200) {
+        return this.$message.error('组合筛选查找案例失败')
+      }
+      if (res.data != null) {
+        this.allCaseList = res.data.data
+      }
+      this.accident = {}
+      this.environment = {}
+      this.road = {}
+      this.pedestrian = {}
+      this.car = {}
+      this.twoWheeler = {}
     },
     // 详情对话框
     showDetailDialog(id) {
@@ -285,7 +331,6 @@ export default {
      * 修改
      */
     showEditDialog(id) {
-      console.log(id);
       this.$refs.editFormRef.showDialog(id)
     },
     /**
@@ -352,49 +397,9 @@ export default {
     /**
      * 导出Excel相关逻辑
      */
-    init() {
-      this.total = dataExport.total
-      this.env = dataExport.env
-      this.road = dataExport.road
-      this.car = dataExport.car
-      this.twoWheel = dataExport.twoWheel
-      this.person = dataExport.person
-    },
     // 导出excel
     showderValDialog() {
       this.derValDialogVisible = true
-    },
-    // 组合筛选对话框
-    cancelDialog() {
-      if (this.isShow1) {
-        this.selectDialogVisible = false
-        this.allFilterVal = []
-      } else {
-        this.allFilterVal = []
-        this.isShow1 = true
-        this.isShow2 = false
-      }
-    },
-    submitDialog() {
-      // this.selectDialogVisible = false
-      if (this.isShow1) {
-        this.isShow2 = true
-        this.isShow1 = false
-        this.allFilterVal.push(...this.total_value)
-        this.allFilterVal.push(...this.env_value)
-        this.allFilterVal.push(...this.road_value)
-        this.allFilterVal.push(...this.car_value)
-        this.allFilterVal.push(...this.twoWheel_value)
-        this.allFilterVal.push(...this.person_value)
-        console.log(this.allFilterVal)
-      } else {
-        this.selectDialogVisible = false
-        // 延迟1s重置
-        setTimeout(() => {
-          this.isShow1 = true
-          this.isShow2 = false
-        }, 1000)
-      }
     },
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
@@ -440,18 +445,5 @@ export default {
 }
 /deep/.el-table .cell {
   text-align: center;
-}
-.el-checkbox-group {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-.el-checkbox {
-  width: 300px;
-  margin-top: 10px;
-}
-.el-dialog-div {
-  height: 400px;
-  overflow: auto;
 }
 </style>

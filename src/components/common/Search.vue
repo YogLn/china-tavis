@@ -6,8 +6,11 @@
           <el-button slot="append" icon="el-icon-search" @click="getDataList"></el-button>
         </el-input>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="2.5">
         <el-button type="primary" @click="showDialog">组合筛选查找</el-button>
+      </el-col>
+      <el-col :span="1">
+        <el-button type="primary" @click="getAllCase">查找所有案例</el-button>
       </el-col>
     </el-row>
   </div>
@@ -27,6 +30,9 @@ export default {
     },
     showDialog() {
       this.$emit('showDialog')
+    },
+    getAllCase() {
+      this.$emit('getAllCase')
     }
   },
 }
