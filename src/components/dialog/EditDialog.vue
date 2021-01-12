@@ -1837,10 +1837,8 @@ export default {
       this.getDetailList(id)
     },
     async getDetailList(id) {
-      console.log(id)
       this.visible = true
       const { data: res } = await this.$http.get(`total/${id}`)
-      console.log(res)
       if (res.code !== 200) {
         return this.$message.error('获取案例详情信息失败')
       }
@@ -1900,10 +1898,7 @@ export default {
         if (!valid) return
         this.eastLongitudeFixed()
         this.northLatitudeFixed()
-
-        console.log(this.totalInfo)
         const res = await this.$http.put('accident', this.totalInfo)
-        console.log(res)
 
         if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error('修改失败')
@@ -1919,14 +1914,12 @@ export default {
     saveEnvInfo() {
       this.$refs.envInfoRef.validate(async (valid) => {
         if (!valid) return
-        console.log(this.envInfo)
         const res = await this.$http.put('environment', this.envInfo)
         if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error('修改失败')
         }
         this.visible = false
         this.$message.success('修改成功')
-        console.log(this.caseId)
         this.getDetailList(this.caseId)
         setTimeout(() => {
           this.visible = true
@@ -1936,7 +1929,6 @@ export default {
     saveRoadInfo() {
       this.$refs.wayInfoRef.validate(async (valid) => {
         if (!valid) return
-        console.log(this.wayInfo)
         const res = await this.$http.put('road', this.wayInfo)
         if (res.data.code !== 200 || res.status !== 200) {
           return this.$message.error('修改失败')
@@ -1982,7 +1974,6 @@ export default {
         this.$refs.partInfoThRef.validate(async (valid) => {
           if (!valid) return
           this.partInfoTH.participantNumber = this.partInfoId2
-          console.log(this.partInfoTH)
           const res = await this.$http.put('two_wheeler', this.partInfoTH)
           if (res.data.code !== 200 || res.status !== 200) {
             return this.$message.error('修改失败')
@@ -2014,12 +2005,9 @@ export default {
      *
      */
     partIdChange(opt) {
-      console.log(opt)
-      console.log(this.wayInfoList)
       this.wayInfoList.forEach((item) => {
         if (item.r6002 == opt) {
           this.wayInfo = JSON.parse(JSON.stringify(item))
-          console.log(item.r6002 + ' ' + opt)
         }
       })
     },
@@ -2046,7 +2034,6 @@ export default {
       if (this.partInfoTHList != null && this.partInfoTHList.length != 0) {
         this.partInfoTHList.forEach((item) => {
           if (item.participantNumber == opt) {
-            console.log(item.participantNumber)
             this.partTypeVal = '二/三轮车'
             this.partInfoTH = JSON.parse(JSON.stringify(item))
           }

@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import Welcome from '../views/Welcome.vue'
-import NewCase from '../views/NewCase.vue'
-import Manager from '../views/manage/Manager.vue'
-import Site from '../views/manage/Site.vue'
-import Total from '../views/data/Total.vue'
-import Assign from '../views/Assign.vue'
-import Export from '../views/Export.vue'
-import Review from '../views/Review.vue'
-import Statistic from '../views/statistics/Statistic.vue'
+const Login = () => import('../views/Login.vue')
+const Home = () => import('../views/Home.vue')
+const Welcome = () => import('../views/Welcome.vue')
+const NewCase = () => import('../views/NewCase.vue')
+const Manager = () => import('../views/manage/Manager.vue')
+const Site = () => import('../views/manage/Site.vue')
+const Total = () => import('../views/data/Total.vue')
+const Assign = () => import('../views/Assign.vue')
+const Export = () => import('../views/Export.vue')
+const Review = () => import('../views/Review.vue')
+const Statistic = () => import('../views/statistics/Statistic.vue')
 
 Vue.use(VueRouter)
 

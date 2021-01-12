@@ -40,13 +40,13 @@
               <el-button type="info" icon="el-icon-more" size="mini" @click="showDetailDialog(scope.row.id)" :disabled="checkInfo(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip content="修改案例" placement="top" :enterable="false" effect="dark">
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" :disabled="checkEdit(scope.row.userId)"></el-button>
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)" :disabled="checkEdit(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip content="删除案例" placement="top" :enterable="false" effect="dark">
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteCase(scope.row.caseNumber)" :disabled="checkDelete(scope.row.userId)"></el-button>
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteCase(scope.row.caseNumber)" :disabled="checkDelete(scope.row)"></el-button>
             </el-tooltip>
             <el-tooltip content="提交案例" placement="top" :enterable="false" effect="dark">
-              <el-button type="success" icon="el-icon-check" @click="submitCase(scope.row.id)" :disabled="checkSubmit(scope.row.userId)" size="mini"></el-button>
+              <el-button type="success" icon="el-icon-check" @click="submitCase(scope.row.id)" :disabled="checkSubmit(scope.row)" size="mini"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -217,12 +217,16 @@ export default {
         return true
       }
     },
-    checkEdit(id) {
+    checkEdit(opt) {
       if (this.roleType == 'ADMIN') {
         return false
-      } else if (this.roleId == id && this.roleType == 'COLLECTOR') {
+      } else if (
+        this.roleId == opt.id &&
+        this.roleType == 'COLLECTOR' &&
+        opt.status == 2
+      ) {
         return false
-      } else if (this.roleId == id && this.roleType == 'AUDITOR') {
+      } else if (this.roleId == opt.userId && this.roleType == 'AUDITOR') {
         return false
       } else {
         return true
@@ -235,8 +239,6 @@ export default {
         return false
       } else if (this.roleId == opt.userId && this.roleType == 'AUDITOR') {
         return false
-      } else if (this.roleId == opt.checkUserId && this.roleType == 'AUDITOR') {
-        return false
       } else {
         return true
       }
@@ -244,7 +246,11 @@ export default {
     checkSubmit(opt) {
       if (this.roleType == 'ADMIN') {
         return false
-      } else if (this.roleId == opt.userId && this.roleType == 'COLLECTOR') {
+      } else if (
+        this.roleId == opt.userId &&
+        this.roleType == 'COLLECTOR' &&
+        opt.status == 2
+      ) {
         return false
       } else if (this.roleId == opt.userId && this.roleType == 'AUDITOR') {
         return false
@@ -315,6 +321,8 @@ export default {
       }
       if (res.data != null) {
         this.allCaseList = res.data.data
+      }else{
+        this.allCaseList = []
       }
       this.accident = {}
       this.environment = {}
@@ -352,7 +360,6 @@ export default {
     async permanentDel() {
       const arr = []
       arr.push(this.caseNum)
-      console.log(arr)
       const res = await this.$http.delete('total/delete', {
         data: {
           accidentIds: arr,
@@ -370,7 +377,6 @@ export default {
     async unPermanentDel() {
       const arr = []
       arr.push(this.caseNum)
-      console.log(arr)
       const res = await this.$http.delete('total/delete', {
         data: {
           accidentIds: arr,
@@ -412,27 +418,21 @@ export default {
 
     /*选中后push对应的值进入数组*/
     sendTotal(arr) {
-      console.log(arr)
       this.total_value = arr
     },
     sendEnv(arr) {
-      console.log(arr)
       this.env_value = arr
     },
     sendRoad(arr) {
-      console.log(arr)
       this.road_value
     },
     sendCar(arr) {
-      console.log(arr)
       this.car_value = arr
     },
     sendTwowheel(arr) {
-      console.log(arr)
       this.twoWheel_value = arr
     },
     sendPerson(arr) {
-      console.log(arr)
       this.person_value = arr
     },
   },

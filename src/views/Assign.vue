@@ -267,7 +267,6 @@ export default {
         this.selectEditList.forEach((item) => {
           accidentId.push(item.id)
         })
-        console.log(this.ReAssignForm.username)
         const res = await this.$http.post('manager/case', {
           accidentIds: accidentId,
           checkUserId: this.ReAssignForm.username,

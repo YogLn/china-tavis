@@ -1456,7 +1456,6 @@ export default {
       if (res.code !== 200) {
         return this.$message.error('获取案例详情信息失败')
       }
-
       this.reviewInfo.info = res.data.accident.checkInfo
       this.totalInfo = res.data.accident
       this.envInfo = res.data.environment

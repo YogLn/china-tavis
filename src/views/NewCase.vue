@@ -1284,6 +1284,7 @@
 </template>
 
 <script>
+let _ = require('lodash')
 import Breadcrumb from '../components/common/Breadcrumb.vue'
 import dataPro from '../components/newcase/dataProcess'
 export default {
@@ -2207,13 +2208,11 @@ export default {
         if (!valid) return
         this.eastLongitudeFixed()
         this.northLatitudeFixed()
-        console.log(this.totalInfo)
         const res = await this.$http.post('accident', this.totalInfo)
 
         if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error('保存失败')
         }
-        console.log(res)
         this.Release = true
         this.envInfo.e2001 = this.totalInfo.g1001
         this.wayInfo.r6001 = this.totalInfo.g1001
@@ -2246,11 +2245,11 @@ export default {
         this.ReleaseCheck()
         // 新建案例执行
         if (!this.isRecovery) {
-          let id = this.partInfoId - 1
-          this.creatRoadList[id] = JSON.parse(JSON.stringify(this.wayInfo))
+          let index = this.partInfoId - 1
+          this.creatRoadList[index] =_.cloneDeep(this.wayInfo)
           // 拷贝
-          this.wayInfo1 = this.creatRoadList[0]
-
+          this.wayInfo1 = _.cloneDeep(this.creatRoadList[0])
+          
           this.wayInfo.r6002 = this.partInfoId
           this.wayInfo.r6001 = this.totalInfo.g1001
         }
@@ -2266,7 +2265,6 @@ export default {
         this.$refs.partInfoPeoRef.validate(async (valid) => {
           if (!valid) return
           this.partInfoPeo.participantNumber = this.partInfoId2
-          console.log(this.partInfoPeo)
           const res = await this.$http.post('pedestrian', this.partInfoPeo)
           if (res.data.code !== 200 || res.status !== 200) {
             return this.$message.error('保存失败')
@@ -2279,7 +2277,6 @@ export default {
         this.$refs.partInfoCarRef.validate(async (valid) => {
           if (!valid) return
           this.partInfoCar.v3002 = this.partInfoId2
-          console.log(this.partInfoCar)
           const res = await this.$http.post('car', this.partInfoCar)
           if (res.data.code !== 200 || res.status !== 200) {
             return this.$message.error('保存失败')
@@ -2292,12 +2289,10 @@ export default {
         this.$refs.partInfoThRef.validate(async (valid) => {
           if (!valid) return
           this.partInfoTH.participantNumber = this.partInfoId2
-          console.log(this.partInfoTH)
           const res = await this.$http.post('two_wheeler', this.partInfoTH)
           if (res.data.code !== 200 || res.status !== 200) {
             return this.$message.error('保存失败')
           }
-          console.log(res)
           this.addBtnCount++
           this.creatPartThList[this.partInfoId2 - 1] = this.partInfoTH
           this.$message.success('保存成功')
@@ -2406,6 +2401,9 @@ export default {
       this.wayInfo = this.wayInfo1
       this.wayInfo.r6002 = this.partInfoId
     },
+    /**
+     * 道路信息参与方改变
+     */
     partIdChange(id) {
       this.partInfoId = id
       // 是否是恢复的数据
@@ -2421,7 +2419,6 @@ export default {
         }
         this.wayInfo.r6002 = id
       } else {
-        console.log(this.creatRoadList);
         this.wayInfo = this.creatRoadList[id - 1]
         this.wayInfo.r6002 = id
       }
@@ -2444,7 +2441,7 @@ export default {
         this.partInfoPeoCp.p4001 = this.totalInfo.g1001
         this.partInfoCarCp.v3001 = this.totalInfo.g1001
         this.partInfoTHCp.t5001 = this.totalInfo.g1001
-        this.creatRoadList.push(JSON.parse(JSON.stringify(this.wayInfoCp)))
+        this.creatRoadList.push(_.cloneDeep(this.wayInfoCp))
         this.creatPartPeoList.push(
           JSON.parse(JSON.stringify(this.partInfoPeoCp))
         )
@@ -2613,7 +2610,7 @@ export default {
 .reset {
   position: absolute;
   top: 40px;
-  right: 20 px;
+  right: 20px;
   z-index: 1;
   align-items: center;
 }

@@ -144,14 +144,10 @@ export default {
     showAuditInfoDialog(id) {
       this.auditInfo.accidentIds = []
       this.auditInfo.accidentIds.push(id)
-      console.log(this.auditInfo)
       this.auditInfoDialogVisible = true
-      console.log(id)
     },
     async submitAudit() {
-      console.log(this.auditInfo)
       const res = await this.$http.put('accident/check', this.auditInfo)
-      console.log(res)
       if (res.status !== 200 || res.data.code !== 200) {
         return this.$message.error('提交审核失败')
       }
@@ -176,7 +172,6 @@ export default {
     async permanentDel() {
       const arr = []
       arr.push(this.caseNum)
-      console.log(arr)
       const res = await this.$http.delete('total/delete', {
         data: {
           accidentIds: arr,
@@ -194,7 +189,6 @@ export default {
     async unPermanentDel() {
       const arr = []
       arr.push(this.caseNum)
-      console.log(arr)
       const res = await this.$http.delete('total/delete', {
         data: {
           accidentIds: arr,
