@@ -62,8 +62,8 @@ export default {
       checked: false,
       // 这是表单的数据绑定对象
       loginForm: {
-        telephone: '15508067205',
-        password: '123456',
+        telephone: '',
+        password: '',
         rememberMe: false,
         code: '',
       },
@@ -108,11 +108,12 @@ export default {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
         const res = await this.$http.post('auth/login', this.loginForm)
-        if (res.status !== 200 || res.data.code !== 200)
+        if (res.status !== 200 || res.data.code !== 200) {
+          this.getCode()
           return this.$message.error('登录失败')
+        }          
         this.$message.success('登录成功')
         window.sessionStorage.setItem('token', res.data.data)
-        console.log(res.data)
         this.$router.push('/home')
       })
     },

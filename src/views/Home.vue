@@ -53,7 +53,7 @@
           <el-input v-model="userInfoList.email"></el-input>
         </el-form-item>
         <el-form-item label="站点">
-          <el-input v-model="userInfoList.site.name" disabled></el-input>
+          <el-input v-model="userInfoList.site.name" v-if="userInfoList.site != null" disabled></el-input>
         </el-form-item>
         <el-form-item label="账户类型">
           <el-input v-model="userInfoList.roles[0].description" disabled></el-input>
@@ -105,7 +105,6 @@ export default {
       }
     }
     return {
-      roleType: '',
       // 左侧菜单数据
       menulist: [
         {
@@ -222,11 +221,10 @@ export default {
     async getUserInfo() {
       const { data: res } = await this.$http.get('user')
       if (res.code !== 200) {
-        this.$message.error('获取用户信息失败res.data')
+        this.$message.error('获取用户信息失败')
       }
-      this.roleType = res.data.roles[0].name
       this.userInfoList = res.data
-      if (res.data.roles[0].name == 'AUDITOR') {
+       if (res.data.roles[0].name == 'AUDITOR') {
         this.menulist[2].isShow = false
         this.menulist[3].isShow = false
         this.menulist[4].isShow = false
@@ -266,8 +264,6 @@ export default {
           newPassword: this.pwdForm.pass,
           oldPassword: this.pwdForm.oldpass,
         })
-        console.log(this.pwdForm.oldpass)
-        console.log(res)
         if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error('修改密码失败')
         }

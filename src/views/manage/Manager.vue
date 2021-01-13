@@ -297,7 +297,6 @@ export default {
           'manager/user/register',
           this.addUserForm
         )
-        console.log(res)
         if (res.status !== 200 || res.data.code !== 200) {
           return this.$message.error(res.data.message)
         }
@@ -322,12 +321,10 @@ export default {
       }).catch((err) => err)
       // 如果用户确认删除，返回字符串 confirm
       // 如果用户取消删除，返回字符串 cancle
-      //console.log(confirmResult)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
       const res = await this.$http.delete(`manager/user/${id}`)
-      console.log(res)
       if (res.status !== 200 || res.data.code !== 200) {
         this.$message.error('删除失败')
       }
@@ -337,7 +334,6 @@ export default {
     async showEditDialog(id) {
       this.editLoading = true
       const res = await this.$http.get(`manager/user/${id}`)
-      console.log(res.data)
       this.resetPwdId = res.data.data.id
       this.editRoleValue = res.data.data.roles[0].description
       if (res.data.data.site) {
@@ -364,7 +360,6 @@ export default {
       }).catch((err) => err)
       // 如果用户确认删除，返回字符串 confirm
       // 如果用户取消删除，返回字符串 cancle
-      //console.log(confirmResult)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消重置')
       }
@@ -376,9 +371,7 @@ export default {
       this.$message.success('重置密码成功')
     },
     async editUser() {
-      console.log(this.editUserForm)
       const res = await this.$http.put('manager/user', this.editUserForm)
-      console.log(res)
       if (res.status !== 200 || res.data.code !== 200) {
         this.$message.error('修改失败')
       }

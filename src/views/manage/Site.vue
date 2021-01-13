@@ -11,9 +11,9 @@
       </el-row>
 
       <el-table :data="siteList" style="width: 100%" :default-sort="{prop: 'siteList.id', order: 'ascending'}" v-loading="tableLoading" stripe border>
-        <el-table-column prop="id" label="站点id" sortable width="100px">
+        <el-table-column  sortable type="index" label="#">
         </el-table-column>
-        <el-table-column prop="name" label="站点名称" sortable>
+        <el-table-column prop="name" label="站点名称">
         </el-table-column>
         <el-table-column prop="description" label="站点描述">
         </el-table-column>
@@ -186,12 +186,10 @@ export default {
       }).catch((err) => err)
       // 如果用户确认删除，返回字符串 confirm
       // 如果用户取消删除，返回字符串 cancle
-      //console.log(confirmResult)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
       const res = await this.$http.delete(`site/${id}`)
-      console.log(res)
       if (res.status !== 200 || res.data.code !== 200) {
         this.$message.error('删除站点失败')
       }
@@ -225,7 +223,6 @@ export default {
           return
         }
         const res = await this.$http.post('site', this.addSiteForm)
-        console.log(res)
         if (res.data.code !== 200 || res.status !== 200) {
           this.$message.error('添加站点失败')
         }
