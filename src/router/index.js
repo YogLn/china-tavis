@@ -29,16 +29,16 @@ const routes = [
 		component: Home,
 		redirect: '/welcome',
 		children: [
-      { path: '/welcome', component: Welcome },
-      { path: '/newcase', component: NewCase },
-      { path: '/manager', component: Manager },
-      { path: '/site', component: Site },
-      { path: '/total', component: Total },
-      { path: '/assign', component: Assign },
-      { path: '/export', component: Export },
-      { path: '/statistic', component: Statistic },
-      { path: '/review', component: Review },
-    ]
+			{ path: '/welcome', component: Welcome },
+			{ path: '/newcase', component: NewCase },
+			{ path: '/manager', component: Manager },
+			{ path: '/site', component: Site },
+			{ path: '/total', component: Total },
+			{ path: '/assign', component: Assign },
+			{ path: '/export', component: Export },
+			{ path: '/statistic', component: Statistic },
+			{ path: '/review', component: Review },
+		]
 	},
 ]
 
@@ -47,11 +47,11 @@ const router = new VueRouter({
 	mode: 'history',
 })
 // 挂载路由导航守卫
-router.beforeEach((to,from,next) => {
-  if(to.path === '/login') next()
-  // 获取 token
-  const tokenStr = window.sessionStorage.getItem('token')
-  if(!tokenStr) return next('/login')
-  next()
+router.beforeEach((to, from, next) => {
+	if (to.path == '/login') return next()
+	// 获取 token
+	const tokenStr = window.sessionStorage.getItem('token')
+	if (!tokenStr) return next('/login')
+	next()
 })
 export default router

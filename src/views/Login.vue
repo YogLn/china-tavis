@@ -11,7 +11,7 @@
         </div>
       </div>
       <!-- 登录表单区 -->
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form">
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form" v-loading="loading">
         <!-- 用户名 -->
         <el-form-item prop="telephone">
           <el-input v-model="loginForm.telephone" prefix-icon="iconfont iconuser" placeholder="请输入手机号"></el-input>
@@ -22,14 +22,14 @@
         </el-form-item>
         <!-- 验证码 -->
         <el-form-item prop="code" class="loginCode">
-          <el-input v-model="loginForm.code"></el-input>
+          <el-input v-model="loginForm.code" placeholder="验证码"></el-input>
           <div class="imgCode" @click="getCode">
             <img :src="captchaImg" alt="换一张">
           </div>
         </el-form-item>
         <!-- 按钮 -->
-          <el-checkbox v-model="checked" @change="rememberMe" class="remember-me">记住我?</el-checkbox>
-        <el-form-item class="btns">          
+        <el-checkbox v-model="checked" @change="rememberMe" class="remember-me">记住我?</el-checkbox>
+        <el-form-item class="btns">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
@@ -59,6 +59,7 @@ export default {
       cb(new Error('请输入合法的手机号'))
     }
     return {
+      loading: false,
       checked: false,
       // 这是表单的数据绑定对象
       loginForm: {
@@ -86,14 +87,15 @@ export default {
             trigger: 'blur',
           },
         ],
+        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
     }
   },
   methods: {
     // 获取验证码
     async getCode() {
-      let res= await this.$http.get('auth/captcha',{
-        responseType: 'blob'
+      let res = await this.$http.get('auth/captcha', {
+        responseType: 'blob',
       })
       this.captchaImg = window.URL.createObjectURL(res.data)
     },
@@ -107,14 +109,30 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) return
-        const res = await this.$http.post('auth/login', this.loginForm)
-        if (res.status !== 200 || res.data.code !== 200) {
+        this.loading = true
+        try {
+          const res = await this.$http.post('auth/login', this.loginForm)
+          if (res.status !== 200 || res.data.code !== 200) {
+            if (res.data.code === 500) {
+              this.getCode()
+              this.loading = false
+              return this.$message.error('验证码失效或错误')
+            } else {
+              return this.$message.error('登录失败');
+            }
+          }
+          this.loading = false
+          this.$message.success('登录成功')
+          window.sessionStorage.setItem('token', res.data.data)
+          setTimeout(() => {
+            this.$router.push('/home')
+          }, 500)
+        } catch (error) {
+          console.log(error)
           this.getCode()
-          return this.$message.error('登录失败')
-        }          
-        this.$message.success('登录成功')
-        window.sessionStorage.setItem('token', res.data.data)
-        this.$router.push('/home')
+          this.loading = false
+          return this.$message.error('账号或密码错误')
+        }
       })
     },
   },
@@ -132,18 +150,18 @@ export default {
   display: flex;
 }
 .login_box {
-  width: 360px;
-  height: 450px;
+  width: 290px;
+  height: 350px;
   // background-color: #beceda;
-  background: rgba(255,255,255,.6);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 3px;
   position: absolute;
-  left: calc(80% - 120px);
-  top: calc(50% - 225px);
+  left: calc(80% - 110px);
+  top: calc(50% - 100px);
   .title {
     width: 100%;
     height: 15%;
-    margin-top: 5%;
+    margin-top: 3%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -151,23 +169,23 @@ export default {
     border-bottom: 1.6px solid #818679;
   }
   .name {
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-family: 微软雅黑, serif;
     color: #818679;
   }
   .description {
     color: grey;
     font-family: 微软雅黑, serif;
-    letter-spacing: 2.5px;
+    letter-spacing: 2.2px;
   }
 }
 .login_form {
   width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
-  margin-top: 40px;
+  margin-top: 20px;
   position: relative;
-    .remember-me {
+  .remember-me {
     position: absolute;
     left: 30px;
     margin-top: 8px;
@@ -187,11 +205,11 @@ export default {
   margin-top: 8px;
 }
 .imgCode {
-  width: 120px;
-  height: 45px;
+  width: 90px;
+  height: 40px;
   position: absolute;
-  margin-left: 100%;
-  margin-top: -45px;
+  margin-left: 110%;
+  margin-top: -40px;
   cursor: pointer;
 }
 .imgCode img {
@@ -203,6 +221,6 @@ export default {
   justify-content: flex-end;
 }
 .el-form-item {
-  margin: 40px 0;
+  margin: 25px 0;
 }
 </style>

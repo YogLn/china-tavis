@@ -21,12 +21,12 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse? '64px' : '200px'">
-        <div class="toggle-button" style="color:#fff" @click="toggleCollapse">|||</div>
+        <div class="toggle-button" style="color:#ffffff" @click="toggleCollapse">|||</div>
         <!-- 侧边栏菜单区 -->
         <el-menu background-color="#00576B" text-color="#BFCBC0" active-text-color="#349beb" :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath">
           <!-- 一级菜单 -->
           <el-menu-item v-for="(item,index) in menulist" :key="index" :index="'/' + item.path" v-show="item.isShow">
-            <i :class="item.icon" style="color:#fff"></i>
+            <i :class="item.icon" style="color:#ffffff"></i>
             <span slot="title" class="menuName">{{item.menuName}}</span>
           </el-menu-item>
         </el-menu>
@@ -74,10 +74,10 @@
         <el-form-item label="旧密码" prop="oldpass">
           <el-input type="password" v-model="pwdForm.oldpass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="pass">
+        <el-form-item label="新密码" prop="pass">
           <el-input type="password" v-model="pwdForm.pass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
+        <el-form-item label="确认新密码" prop="checkPass">
           <el-input type="password" v-model="pwdForm.checkPass" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -293,7 +293,7 @@ export default {
   justify-content: space-between;
   padding: 0;
   align-items: center;
-  color: #fff;
+  color: #ffffff;
   font-size: 16px;
   height: 50px !important;
   > div {
@@ -305,7 +305,7 @@ export default {
   }
   .el-dropdown-link {
     cursor: pointer;
-    color: #fff;
+    color: #ffffff;
     padding-right: 30px;
   }
   .el-icon-arrow-down {
@@ -339,7 +339,7 @@ export default {
 }
 .title {
   font-size: 22px;
-  letter-spacing:3px;
+  letter-spacing:2px;
 }
 .menuName {
   font-size: 16px;

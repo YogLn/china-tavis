@@ -29,7 +29,9 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <el-button type="primary" @click="showCase">该型案例编号</el-button>
+          <template slot-scope="scope">
+            <el-button type="primary" @click="showCase(scope.row.title)">该型案例编号</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </el-card>
@@ -87,7 +89,6 @@ export default {
     })
   },
   methods: {
-    showAddDialog() {},
     showDialog() {
       bus.$emit('chooseData', true)
     },
@@ -131,7 +132,6 @@ export default {
         const { data: res } = await this.$http.post('statistics', this.query)
         let arr = []
         this.allCount = 0
-        console.log(res);
         res.data.forEach((item) => {
           this.allCount += item.countNum
         })
@@ -146,15 +146,15 @@ export default {
         bus.$emit('vData', arr)
         this.tableData = res.data
       } catch (err) {
-        console.log(err)
       }
     },
 
     /**
      * 该型案例编号
      */
-    showCase() {
+    showCase(title) {
       bus.$emit('showCase', true)
+      this.query[this.opt.toString()] = title
       bus.$emit('queryInfo', this.query)
     },
 

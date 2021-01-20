@@ -587,8 +587,8 @@ const dataPro = {
       label: '注意残疾人',
     },
     {
-      value: '师傅易发路段',
-      label: '师傅易发路段',
+      value: '事故易发路段',
+      label: '事故易发路段',
     },
     {
       value: '慢性',

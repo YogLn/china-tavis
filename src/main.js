@@ -14,8 +14,8 @@ import axios from 'axios'
 import VCharts from 'v-charts'
 Vue.use(VCharts)
 
-// axios.defaults.baseURL = 'http://localhost:8080/api/'
-axios.defaults.baseURL = 'http://china-tavis.com:8081/api/'
+axios.defaults.baseURL = 'http://localhost:8080/api/'
+// axios.defaults.baseURL = 'http://china-tavis.com:8081/api/'
 axios.defaults.headers = {
   'Content-Type': 'application/json', //如果写成contentType会报错
 }
@@ -35,13 +35,14 @@ axios.interceptors.response.use(function (response) {
   window.sessionStorage.setItem('captcha', response.headers.captcha)
   return response;
 }, function (error) {
+  if (window.location.href == 'http://china-tavis.com/login')
+    return
   if (error.response.data.status == 401) {
     window.alert('登录失效，请重新登录')
-    router.push('/login')
+    return router.push('/login')
   }
   if (error.response.data.status == 403) {
-    window.alert('无权访问,请重新登录')
-    router.push('/login')
+    window.alert('无权访问')
   }
   return Promise.reject(error);
 });

@@ -659,7 +659,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="事故前车辆要避撞的对向" prop="v3021">
+                    <el-form-item label="事故前车辆要避撞的对象" prop="v3021">
                       <el-select v-model="partInfoCar.v3021" placeholder="请选择">
                         <el-option v-for="item in options3021" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
@@ -687,7 +687,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="车辆初始速度" prop="v3024">
+                    <el-form-item label="车辆初始速度（km/h）" prop="v3024">
                       <el-input v-model="partInfoCar.v3024"></el-input>
                     </el-form-item>
                   </el-col>
@@ -1045,7 +1045,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="参二/三轮车颜色" prop="t5003">
+                    <el-form-item label="二/三轮车颜色" prop="t5003">
                       <el-select v-model="partInfoTH.t5003" placeholder="请选择">
                         <el-option v-for="item in carColor" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
@@ -1106,7 +1106,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="二轮车/三速度（km/h）" prop="t5011">
+                    <el-form-item label="二/三轮车速度（km/h）" prop="t5011">
                       <el-input v-model="partInfoTH.t5011"></el-input>
                     </el-form-item>
                   </el-col>
@@ -1219,7 +1219,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="二轮车/三乘客数" prop="t5024">
+                    <el-form-item label="二/三轮车乘客数" prop="t5024">
                       <el-select v-model="partInfoTH.t5024" placeholder="请选择">
                         <el-option v-for="item in options5024" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
@@ -1290,6 +1290,12 @@ import dataPro from '../components/newcase/dataProcess'
 export default {
   components: { Breadcrumb },
   data() {
+    var checkg1003 = (rule, value, cb) => {
+      if (value > 0) {
+        return cb()
+      }
+      cb(new Error('参与方数目必须大于0'))
+    }
     var checkLongitude = (rule, value, cb) => {
       const target = parseFloat(value)
       if (
@@ -1311,6 +1317,17 @@ export default {
         return cb()
       }
       cb(new Error('纬度范围在3.5100至53.3300之间'))
+    }
+    var checkr6013 = (rule, value, cb) => {
+      const target = parseFloat(value)
+      if (
+        (target > 0 && target < 10) ||
+        value == null ||
+        value.trim().length == 0
+      ) {
+        return cb()
+      }
+      cb(new Error('范围在0-10之间'))
     }
     var checkg1001 = (rule, value, cb) => {
       const regRule = /^[a-zA-Z]{3}\d{6}$/
@@ -1344,6 +1361,7 @@ export default {
         (target >= 0 && target <= 250) ||
         value == null ||
         value === '' ||
+        value == 999 ||
         value.trim().length == 0
       ) {
         return cb()
@@ -1372,6 +1390,19 @@ export default {
         return cb()
       }
       cb(new Error('范围在0 ~ 30000之间'))
+    }
+    var checkr6014 = (rule, value, cb) => {
+      const target = parseFloat(value)
+      if (
+        (target > 0 && target <= 150) ||
+        value == null ||
+        value === '' ||
+        value == 999 ||
+        value.trim().length == 0
+      ) {
+        return cb()
+      }
+      cb(new Error('范围在0 ~ 150之间'))
     }
     var checkv3011 = (rule, value, cb) => {
       const target = parseFloat(value)
@@ -1817,6 +1848,7 @@ export default {
         ],
         g1003: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { required: false, validator: checkg1003, trigger: 'blur' },
         ],
         g1004: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
@@ -1894,20 +1926,8 @@ export default {
             trigger: 'blur',
           },
         ],
-        r6013: [
-          {
-            pattern: /^[0-9|10]$/,
-            message: '范围在0 ~ 10',
-            trigger: 'blur',
-          },
-        ],
-        r6014: [
-          {
-            pattern: /^(1[1-4][0-9]|150)$|^([1-9][0-9])$|^[0-9]$/,
-            message: '范围在0 ~ 150',
-            trigger: 'blur',
-          },
-        ],
+        r6013: [{ validator: checkr6013, trigger: 'blur' }],
+        r6014: [{ validator: checkr6014, trigger: 'blur' }],
         r6019: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
@@ -2038,7 +2058,7 @@ export default {
         ],
         t5011: [
           {
-            pattern: /^([1-9]|[1-9]\\d|100)$/,
+            pattern: /^(?:[1-9]?\d|100)$/,
             message: '范围0-100',
             trigger: 'blur',
           },
@@ -2107,6 +2127,7 @@ export default {
       resetCaseFormRules: {
         id: [{ required: true, message: '请输入案例编号', trigger: 'blur' }],
       },
+      isFirst: true,
     }
   },
   created() {
@@ -2177,6 +2198,10 @@ export default {
             this.Release = false
           }
           this.activeName = '1'
+          if (this.isFirst) {
+            this.partIdSelect()
+            this.isFirst = false
+          }
         } else if (this.activeIndex === 2) {
           this.activeName = '2'
           if (this.isRecovery) {
@@ -2186,7 +2211,6 @@ export default {
           } else {
             this.Release = false
           }
-          this.partIdSelect()
         } else {
           this.activeName = '3'
         }
@@ -2246,10 +2270,10 @@ export default {
         // 新建案例执行
         if (!this.isRecovery) {
           let index = this.partInfoId - 1
-          this.creatRoadList[index] =_.cloneDeep(this.wayInfo)
+          this.creatRoadList[index] = _.cloneDeep(this.wayInfo)
           // 拷贝
           this.wayInfo1 = _.cloneDeep(this.creatRoadList[0])
-          
+
           this.wayInfo.r6002 = this.partInfoId
           this.wayInfo.r6001 = this.totalInfo.g1001
         }
@@ -2328,6 +2352,7 @@ export default {
       this.partInfoCarList = []
       this.partInfoPeoList = []
       this.partInfoTHList = []
+      this.isFirst = true
     },
     ReleaseCheck() {
       this.roadInfoSet.add(this.partInfoId)

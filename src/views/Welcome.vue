@@ -11,7 +11,7 @@ export default {
 
 <style lang="less" scoped>
 .welcome {
-  background-image: url('../assets/img/login.jpg');
+  background-image: url('../assets/img/welcome.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   height: 100%;

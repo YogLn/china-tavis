@@ -63,7 +63,7 @@
         layout="total, sizes, prev, pager, next, jumper" :total="totalCount" background>
       </el-pagination>
       <!-- 注册新用户对话框 -->
-      <el-dialog title="创建用户" :visible.sync="addUserDialogVisable" width="40%" @close="addUserClosed">
+      <el-dialog title="创建用户" :visible.sync="addUserDialogVisable" width="30%" @close="addUserClosed">
         <el-form ref="addUserRef" :model="addUserForm" label-width="100px" :rules="addUserFormRules">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="addUserForm.username"></el-input>
@@ -176,7 +176,7 @@ export default {
       addUserForm: {
         description: '',
         email: '',
-        roleId: 0,
+        roleId: 1,
         siteId: 0,
         telephone: '',
         username: '',
@@ -185,9 +185,9 @@ export default {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           {
-            min: 3,
+            min: 2,
             max: 10,
-            message: '用户名的长度在3~10字符之间',
+            message: '用户名的长度在2~10字符之间',
             trigger: 'blur',
           },
         ],
@@ -199,7 +199,7 @@ export default {
           { required: true, message: '请输入邮箱', trigger: 'blur' },
           { validator: checkEmail, trigger: 'blur' },
         ],
-        roleId: [{ required: true, message: '请选站点', trigger: 'blur' }],
+        roleId: [{ required: true, message: '请选角色类型', trigger: 'blur' }],
       },
       queryInfo: {
         pageNo: 1,
@@ -211,7 +211,7 @@ export default {
       siteType: [],
       siteValue: '无',
       roleType: [],
-      roleValue: '',
+      roleValue: '超级管理员',
       editUserDialogVisable: false,
       editUserForm: {
         description: '',
