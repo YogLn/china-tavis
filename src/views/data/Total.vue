@@ -7,7 +7,7 @@
       <search @getDataList="getSearchData" @showDialog="showDialog" @getAllCase="getAllCase" inputText="请输入案例编号">
       </search>
       <!-- 表格 -->
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" v-loading="loading">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="480" v-loading="loading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="caseNumber" label="案例编号" width="120px">
@@ -104,7 +104,7 @@ export default {
       queryInfo: {
         caseNumber: '',
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
       },
       totalCount: 0,
 
@@ -199,6 +199,11 @@ export default {
       this.getFilter()
     })
   },
+  mounted() {
+    bus.$on('editSuccess', () => {
+      this.getCaseList()
+    })
+  },
   methods: {
     checkInfo(opt) {
       if (this.roleType == 'ADMIN') {
@@ -228,6 +233,8 @@ export default {
         return false
       } else if (this.roleId == opt.userId && this.roleType == 'AUDITOR') {
         return false
+      } else if (opt.status == '2' && this.roleId == opt.userId) {
+        return false
       } else {
         return true
       }
@@ -235,11 +242,13 @@ export default {
     checkDelete(opt) {
       if (this.roleType == 'ADMIN') {
         return false
-      } else if (this.roleId == opt.userId && this.roleType == 'COLLECTOR') {
+      } else if (opt.status == '1' && this.roleType == 'COLLECTOR') {
+        return true
+      }else if (this.roleId == opt.userId && this.roleType == 'COLLECTOR') {
         return false
       } else if (this.roleId == opt.userId && this.roleType == 'AUDITOR') {
         return false
-      } else {
+      }  else {
         return true
       }
     },
@@ -268,7 +277,7 @@ export default {
         params: {
           caseNumber: '',
           pageNo: 1,
-          pageSize: 5,
+          pageSize: 10,
         },
       })
       if (res.data.code !== 200 || res.status !== 200) {
@@ -321,7 +330,7 @@ export default {
       }
       if (res.data != null) {
         this.allCaseList = res.data.data
-      }else{
+      } else {
         this.allCaseList = []
       }
       this.accident = {}
@@ -390,7 +399,7 @@ export default {
       this.getCaseList()
       this.permanentDelDialogVisible = false
     },
-    // 提交案例
+    // 提交案例id
     async submitCase(id) {
       const res = await this.$http.put(`total/submit/${id}`)
       if (res.status !== 200 || res.data.code !== 200) {

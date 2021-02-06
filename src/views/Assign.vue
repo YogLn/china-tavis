@@ -68,7 +68,7 @@
       </span>
     </el-dialog>
     <!-- 修改案例对话框 -->
-    <el-dialog title="总体信息" :visible.sync="editDialogVisible" width="80%">
+    <el-dialog title="总体信息" :visible.sync="editDialogVisible" width="90%">
       <el-table :data="Unreviewed" stripe border style="width: 100%" @selection-change="handleEditSelectionChange" max-height="450" v-loading="unReviewTableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
@@ -136,7 +136,7 @@ export default {
       Records: [],
       accidentQuery: {
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         status: 0,
       },
       accidentTotal: 0,
@@ -222,6 +222,9 @@ export default {
       this.selectList = arr
     },
     async distribution() {
+      if(this.selectList == '') {
+        return this.$message.error('请勾选待分配案例')
+      }
       this.selectList.forEach((item) => {
         this.accidentIds.push(item.id)
       })
@@ -230,7 +233,7 @@ export default {
         checkUserId: this.checkUserId,
       })
       if (res.data.code !== 200 || res.status !== 200) {
-        return this.$message.error('分配案例成失败')
+        return this.$message.error('分配案例失败')
       }
       this.$message.success('分配案例成功')
       this.totalDialogVisible = false

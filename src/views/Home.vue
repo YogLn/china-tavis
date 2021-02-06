@@ -224,7 +224,10 @@ export default {
         this.$message.error('获取用户信息失败')
       }
       this.userInfoList = res.data
-       if (res.data.roles[0].name == 'AUDITOR') {
+      if(!res.data.site) {
+        this.userInfoList.site = '无'
+      }
+      if (res.data.roles[0].name == 'AUDITOR') {
         this.menulist[2].isShow = false
         this.menulist[3].isShow = false
         this.menulist[4].isShow = false
@@ -286,9 +289,9 @@ export default {
     height: 40px;
     border-radius: 50%;
     margin-left: 10px;
-    background-color: #00576B;
+    background-color: #00576b;
   }
-  background-color: #00576B;
+  background-color: #00576b;
   display: flex;
   justify-content: space-between;
   padding: 0;
@@ -313,7 +316,7 @@ export default {
   }
 }
 .el-aside {
-  background-color: #00576B;
+  background-color: #00576b;
   // background-color: #324157;
   .el-menu {
     border-right: none;
@@ -328,7 +331,7 @@ export default {
   margin-right: 10px;
 }
 .toggle-button {
-  background-color:#01404e;
+  background-color: #01404e;
   // background-color: #324157;
   font-size: 10px;
   line-height: 24px;
@@ -339,7 +342,7 @@ export default {
 }
 .title {
   font-size: 22px;
-  letter-spacing:2px;
+  letter-spacing: 0.8px;
 }
 .menuName {
   font-size: 16px;

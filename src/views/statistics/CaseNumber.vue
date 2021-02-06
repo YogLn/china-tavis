@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <el-dialog :visible.sync="visible" title="该型案例编号" width="60%">
-      <el-tag class="tag" v-for="item in cases" :key="item.id" type="info" effect="plain">
+      <el-tag class="tag" v-for="item in cases" :key="item.id" type="info" effect="plain" v-loading="caseLoading">
         <div @click="showDetail(item.id)" class="caseNum">
           {{ item.caseNumber }}
         </div>
@@ -28,6 +28,7 @@ export default {
       visible: false,
       cases: [],
       detailsDialogVisible: false,
+      caseLoading: false
     }
   },
   mounted() {
@@ -35,12 +36,13 @@ export default {
       this.visible = msg
     })
     bus.$on('queryInfo', async (msg) => {
+      this.caseLoading = true
       const { data: res } = await this.$http.post('statistics/detail', msg)
       if (res.code !== 200) {
         return this.$message.error('获取该类型案例列表失败')
       }
-      this.cases = res
-      console.log(res);
+      this.cases = res.data
+      this.caseLoading = false
     })
   },
   methods: {

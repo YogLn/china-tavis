@@ -4,22 +4,22 @@
       <div class="choose">
         <el-collapse v-model="activeName" accordion>
           <el-collapse-item title="基本信息" name="1">
-            <el-radio v-model="chooseValue" border v-for="(item) in total " :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in total " :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
           <el-collapse-item title="环境信息" name="2">
-            <el-radio v-model="chooseValue" border v-for="(item) in env " :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in env " :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
           <el-collapse-item title="道路信息" name="3">
-            <el-radio v-model="chooseValue" border v-for="(item) in road " :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in road " :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
           <el-collapse-item title="参与方信息(车)" name="4">
-            <el-radio v-model="chooseValue" border v-for="(item) in car " :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in car " :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
           <el-collapse-item title="参与方信息(二轮车)" name="5">
-            <el-radio v-model="chooseValue" border v-for="(item) in twoWheel" :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in twoWheel" :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
           <el-collapse-item title="参与方信息(人)" name="6">
-            <el-radio v-model="chooseValue" border v-for="(item) in person " :key="item.name" :label="item.name" @change="change">{{item.label}}</el-radio>
+            <el-radio v-model="chooseValue" border v-for="(item) in person " :key="item.name" :label="item.name" @change="change(item.label)">{{item.label}}</el-radio>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -214,6 +214,7 @@ export default {
         },
       ],
       disabled: true,
+      selectName: ''
     }
   },
   mounted() {
@@ -228,7 +229,8 @@ export default {
       this.save()
     },
     /*选择了值才能下一步*/
-    change() {
+    change(name) {
+      this.selectName = name
       this.disabled = false
     },
     /*保存*/
@@ -292,6 +294,7 @@ export default {
       bus.$emit('filedCode', filedCode)
       bus.$emit('tableCode', tableCode)
       bus.$emit('sendData', this.chooseValue)
+      bus.$emit('getSelectName', this.selectName)
       this.chooseValue = ''
       this.visible = false
     },
@@ -304,14 +307,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.comboChoose {
-  width: 100%;
-  height: 100%;
-}
 .choose {
   margin-left: 2%;
   width: 98%;
-  height: 480px;
+  height: 400px;
   overflow-y: auto;
 }
 .sureButton {

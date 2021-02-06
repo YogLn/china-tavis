@@ -93,6 +93,7 @@ export default {
       bus.$emit('chooseData', true)
     },
     delDisplay(index) {
+      this.query = {}
       // 当删除之前满足条件为三个选满且删除的是最后一个时，加号不禁用
       if (this.form.length === 3 && index === 2) {
         this.disable = false
@@ -120,6 +121,7 @@ export default {
     },
     /*重置所有的选择项重新进行选择*/
     resetting() {
+      this.query = {}
       this.disable = false
       this.form = []
       this.tableData = []
@@ -127,6 +129,7 @@ export default {
     },
     /** 获取表格数据 */
     async getTable() {
+      this.loading = true
       this.query['code'] = this.code
       try {
         const { data: res } = await this.$http.post('statistics', this.query)

@@ -202,12 +202,18 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item label="参与方行驶方向机动车道数（条）" prop="r6005">
-                      <el-input v-model="wayInfo.r6005"></el-input>
+                      <el-select v-model="wayInfo.r6005" placeholder="请选择">
+                        <el-option v-for="item in options6005" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item label="参与方对向机动车道数（条）" prop="r6006">
-                      <el-input v-model="wayInfo.r6006"></el-input>
+                      <el-select v-model="wayInfo.r6006" placeholder="请选择">
+                        <el-option v-for="item in options6005" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                      </el-select>
                     </el-form-item>
                   </el-col>
 
@@ -299,7 +305,7 @@
                   <el-col :span="8">
                     <el-form-item label="道路的线形" prop="r6017">
                       <el-select v-model="wayInfo.r6017" placeholder="请选择">
-                        <el-option v-for="item in roadTrend" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in roadLinearity" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -625,7 +631,7 @@
                   <el-col :span="8">
                     <el-form-item label="主要过错1" prop="v3017">
                       <el-select v-model="partInfoCar.v3017" placeholder="请选择" @change="changeCarFault">
-                        <el-option v-for="item in majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options3017" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -633,7 +639,7 @@
                   <el-col :span="8">
                     <el-form-item label="主要过错2" prop="v3018">
                       <el-select v-model="partInfoCar.v3018" :disabled="isCarFault" placeholder="请选择">
-                        <el-option v-for="item in majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in CarMajorFault2" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -641,7 +647,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否有优先权" prop="v3019">
                       <el-select v-model="partInfoCar.v3019" placeholder="请选择">
-                        <el-option v-for="item in priority" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -692,7 +698,7 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item label="碰撞时速（km/h）" prop="v3025">
+                    <el-form-item label="碰撞时速度（km/h）" prop="v3025">
                       <el-input v-model="partInfoCar.v3025"></el-input>
                     </el-form-item>
                   </el-col>
@@ -969,7 +975,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否因为视野盲区造成事故" prop="p4015">
                       <el-select v-model="partInfoPeo.p4015" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -980,7 +986,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否由停靠车辆造成行人的视野盲区" prop="p4016">
                       <el-select v-model="partInfoPeo.p4016" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -988,7 +994,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否有其他造成行人视线盲区的物体" prop="p4017">
                       <el-select v-model="partInfoPeo.p4017" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -996,7 +1002,7 @@
                   <el-col :span="8">
                     <el-form-item label="开始反应到碰撞前是否有应急姿态" prop="p4018">
                       <el-select v-model="partInfoPeo.p4018" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1007,7 +1013,7 @@
                   <el-col :span="8">
                     <el-form-item label="行人是否从障碍物后穿出" prop="p4019">
                       <el-select v-model="partInfoPeo.p4019" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1015,7 +1021,7 @@
                   <el-col :span="8">
                     <el-form-item label="行人意识到危险之前是否加速" prop="p4020">
                       <el-select v-model="partInfoPeo.p4020" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1023,7 +1029,7 @@
                   <el-col :span="8">
                     <el-form-item label="事故前行人行走方向是否改变" prop="p4021">
                       <el-select v-model="partInfoPeo.p4021" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1089,7 +1095,7 @@
                   <el-col :span="8">
                     <el-form-item label="主要过错2" prop="t5009">
                       <el-select v-model="partInfoTH.t5009" placeholder="请选择" :disabled="isThFault">
-                        <el-option v-for="item in majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in THMajorFault2" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1151,7 +1157,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否佩戴头盔" prop="t5016">
                       <el-select v-model="partInfoTH.t5016" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1186,7 +1192,7 @@
                   <el-col :span="8">
                     <el-form-item label="事故时二/三轮车转向灯是否开启" prop="t5020">
                       <el-select v-model="partInfoTH.t5020" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options5020" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1194,7 +1200,7 @@
                   <el-col :span="8">
                     <el-form-item label="是否有优先权" prop="t5021">
                       <el-select v-model="partInfoTH.t5021" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1205,7 +1211,7 @@
                   <el-col :span="8">
                     <el-form-item label="开始反应到碰撞前是否采取转向措施" prop="t5022">
                       <el-select v-model="partInfoTH.t5022" placeholder="请选择">
-                        <el-option v-for="item in optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options4016" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1213,7 +1219,7 @@
                   <el-col :span="8">
                     <el-form-item label="事故发生前车辆运动类型" prop="t5023">
                       <el-select v-model="partInfoTH.t5023" placeholder="请选择">
-                        <el-option v-for="item in options3026" :key="item.value" :label="item.label" :value="item.value">
+                        <el-option v-for="item in options5023" :key="item.value" :label="item.label" :value="item.value">
                         </el-option>
                       </el-select>
                     </el-form-item>
@@ -1290,6 +1296,12 @@ import dataPro from '../components/newcase/dataProcess'
 export default {
   components: { Breadcrumb },
   data() {
+    var checkVain = (rule, value, cb) => {
+      if (!value) {
+        cb(new Error('必填信息不得为空'))
+      }
+      return cb()
+    }
     var checkg1003 = (rule, value, cb) => {
       if (value > 0) {
         return cb()
@@ -1298,33 +1310,28 @@ export default {
     }
     var checkLongitude = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target > 73.33 && target < 135.05) ||
-        value == null ||
-        value.trim().length == 0
-      ) {
+      if (target > 73.33 && target < 135.05) {
         return cb()
       }
       cb(new Error('经度范围在73.3300~135.0500之间'))
     }
     var checkLatitude = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target > 3.51 && target < 53.33) ||
-        value == null ||
-        value.trim().length == 0
-      ) {
+      if (target > 3.51 && target < 53.33) {
         return cb()
       }
       cb(new Error('纬度范围在3.5100至53.3300之间'))
     }
+    var checkr6012 = (rule, value, cb) => {
+      const target = parseFloat(value)
+      if (target > 0 && target <= 100) {
+        return cb()
+      }
+      cb(new Error('范围在0-100之间'))
+    }
     var checkr6013 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target > 0 && target < 10) ||
-        value == null ||
-        value.trim().length == 0
-      ) {
+      if (target > 0 && target < 10) {
         return cb()
       }
       cb(new Error('范围在0-10之间'))
@@ -1345,109 +1352,72 @@ export default {
     }
     var checke2007 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= -50 && target <= 60) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= -50 && target <= 60) {
         return cb()
       }
-      cb(new Error('温度必须在-50！~ 60之间'))
+      cb(new Error('温度必须在-50~ 60之间'))
     }
     var checkp4004 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 250) ||
-        value == null ||
-        value === '' ||
-        value == 999 ||
-        value.trim().length == 0
-      ) {
+      if ((target >= 0 && target <= 250) || value == '999') {
         return cb()
       }
       cb(new Error('身高必须在0 ~ 250之间'))
     }
     var checkv3006 = (rule, value, cb) => {
-      if (
-        value.length === 17 ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (value.length === 17) {
         return cb()
       }
       cb(new Error('VIN由17位数字+字母组成'))
     }
     var checkv3010 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 30000) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 30000) {
         return cb()
       }
       cb(new Error('范围在0 ~ 30000之间'))
     }
     var checkr6014 = (rule, value, cb) => {
+      if (value == 999 || value == '000') {
+        return cb()
+      }
       const target = parseFloat(value)
-      if (
-        (target > 0 && target <= 150) ||
-        value == null ||
-        value === '' ||
-        value == 999 ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 150) {
         return cb()
       }
       cb(new Error('范围在0 ~ 150之间'))
     }
+    var checkp4011 = (rule, value, cb) => {
+      const target = parseFloat(value)
+      if (target > 0 && target <= 30) {
+        return cb()
+      }
+      cb(new Error('范围在0 ~ 30之间'))
+    }
     var checkv3011 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 3000) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 3000) {
         return cb()
       }
       cb(new Error('范围在0 ~ 3000之间'))
     }
     var checkv3012 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 5000) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 5000) {
         return cb()
       }
       cb(new Error('范围在0 ~ 5000之间'))
     }
     var checkv3013 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 80000) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 80000) {
         return cb()
       }
       cb(new Error('范围在0 ~ 80000之间'))
     }
     var checkv3014 = (rule, value, cb) => {
       const target = parseFloat(value)
-      if (
-        (target >= 0 && target <= 20000) ||
-        value == null ||
-        value === '' ||
-        value.trim().length == 0
-      ) {
+      if (target >= 0 && target <= 20000) {
         return cb()
       }
       cb(new Error('范围在0 ~ 20000之间'))
@@ -1505,7 +1475,7 @@ export default {
       wideningSection: [],
       narrowingSection: [],
       tunnel: [],
-
+      options6005: [],
       carType: [],
       EDR: [],
       carDamage: [],
@@ -1515,6 +1485,7 @@ export default {
       majorFault2: [],
       priority: [],
       roadDirection: [],
+      options3017: [],
       options3021: [],
       options3022: [],
       options3023: [],
@@ -1536,9 +1507,19 @@ export default {
       options4012: [],
       options4013: [],
       options4014: [],
+      options4016: [],
       options5002: [],
       options5010: [],
+      options5020: [],
+      options5023: [],
       options5024: [],
+      majorFault2First: [],
+      majorFault2Second: [],
+      majorFault2Third: [],
+      majorFault2Fourth: [],
+      majorFault2Fifth: [],
+      CarMajorFault2: [],
+      THMajorFault2: [],
       addCaseForm: {},
       // 总体信息
       totalInfo: {
@@ -1844,11 +1825,11 @@ export default {
           },
         ],
         g1002: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
         g1003: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
-          { required: false, validator: checkg1003, trigger: 'blur' },
+          { required: true, validator: checkg1003, trigger: 'blur' },
         ],
         g1004: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
@@ -1860,15 +1841,16 @@ export default {
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
         g1007: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' }
         ],
         g1008: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
-        g1009: [
-          { required: false, validator: checkLongitude, trigger: 'blur' },
-        ],
+        g1009: [{ required: false, validator: checkLongitude, trigger: 'blur' }],
         g1010: [{ required: false, validator: checkLatitude, trigger: 'blur' }],
+        g1011: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
       },
       envInfoRules: {
         e2001: [
@@ -1884,9 +1866,18 @@ export default {
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
           { validator: checke2004, trigger: 'blur' },
         ],
-        e2007: [{ validator: checke2007, trigger: 'blur' }],
+        e2005: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+        e2006: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        e2007: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checke2007, trigger: 'blur' },
+        ],
         e2008: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
       },
       wayInfoRules: {
@@ -1895,6 +1886,9 @@ export default {
         ],
         r6001: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        r6003: [
+          { validator: checkVain, trigger: 'blur' }
         ],
         r6004: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
@@ -1906,6 +1900,9 @@ export default {
         ],
         r6005: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        r6006: [
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
           {
             pattern: /^20$|^([1]\d)$|^\d?$/,
             message: '范围在0 ~ 20',
@@ -1913,21 +1910,46 @@ export default {
           },
         ],
         r6006: [
-          {
-            pattern: /^20$|^([1]\d)$|^\d?$/,
-            message: '范围在0 ~ 20',
-            trigger: 'blur',
-          },
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        r6007: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+        r6008: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6009: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6010: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6011: [
+          { validator: checkVain, trigger: 'blur' }
         ],
         r6012: [
-          {
-            pattern: /^100$|^([1-9]\d)$|^\d?$/,
-            message: '范围在0 ~ 100',
-            trigger: 'blur',
-          },
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkr6012, trigger: 'blur' },
         ],
-        r6013: [{ validator: checkr6013, trigger: 'blur' }],
-        r6014: [{ validator: checkr6014, trigger: 'blur' }],
+        r6013: [
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        r6014: [
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkr6014, trigger: 'blur' },
+        ],
+        r6015: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6016: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+        r6017: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6018: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
         r6019: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
@@ -1937,20 +1959,50 @@ export default {
         r6021: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
+        r6022: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        r6023: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6024: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6025: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6026: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        r6027: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6028: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        r6029: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
+        r6030: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+        r6031: [
+          { validator: checkVain, trigger: 'blur' }
+        ],
         r6032: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
         r6033: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
         r6034: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' }
         ],
         r6035: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
         r6036: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
       },
       partInfoCarRules: {
@@ -1966,50 +2018,163 @@ export default {
         v3004: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
-        v3006: [{ validator: checkv3006, trigger: 'blur' }],
+        v3005: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+        v3006: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3006, trigger: 'blur' },
+        ],
         v3007: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' }
         ],
         v3008: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
-        v3010: [{ validator: checkv3010, trigger: 'blur' }],
-        v3011: [{ validator: checkv3011, trigger: 'blur' }],
-        v3012: [{ validator: checkv3012, trigger: 'blur' }],
-        v3013: [{ validator: checkv3013, trigger: 'blur' }],
-        v3014: [{ validator: checkv3014, trigger: 'blur' }],
-        v3015: [{ validator: checkv3011, trigger: 'blur' }],
-        v3016: [{ validator: checkv3011, trigger: 'blur' }],
+        v3009: [
+         { validator: checkVain, trigger: 'blur' }
+        ],
+
+        v3010: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3010, trigger: 'blur' },
+        ],
+        v3011: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3011, trigger: 'blur' },
+        ],
+        v3012: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3012, trigger: 'blur' },
+        ],
+        v3013: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3013, trigger: 'blur' },
+        ],
+        v3014: [
+         { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3014, trigger: 'blur' },
+        ],
+        v3015: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3011, trigger: 'blur' },
+        ],
+        v3016: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3011, trigger: 'blur' },
+        ],
+        v3017: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3018: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3019: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3020: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3021: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3022: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+
         v3023: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3024: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3025: [
+          { validator: checkVain, trigger: 'blur' },
         ],
         v3026: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3027: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3028: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3029: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3030: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3031: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3032: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3033: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3034: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3035: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3036: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3037: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3038: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3039: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        v3040: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        v3041: [
+         { validator: checkVain, trigger: 'blur' }, 
         ],
       },
       partInfoPeoRules: {
+        p4001: [
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        p4002: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
         p4003: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
-        p4004: [{ validator: checkp4004, trigger: 'blur' }],
+        p4004: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkp4004, trigger: 'blur' },
+        ],
+        p4005: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        p4006: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
         p4007: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4008: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4009: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' },
         ],
         p4010: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4011: [
-          {
-            pattern: /^30$|^([1-2]\d)$|^\d?$/,
-            message: '范围在0 ~ 30',
-            trigger: 'blur',
-          },
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkv3012, trigger: 'blur' },
         ],
         p4012: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
@@ -2021,25 +2186,25 @@ export default {
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
         p4015: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4016: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' },
         ],
         p4017: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
         p4018: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4019: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         p4020: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' },
         ],
         p4021: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
       },
       partInfoTHRules: {
@@ -2049,31 +2214,79 @@ export default {
         t5002: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
-        t5004: [{ validator: checkv3012, trigger: 'blur' }],
-        t5005: [{ validator: checkv3011, trigger: 'blur' }],
-        t5006: [{ validator: checkv3011, trigger: 'blur' }],
-        t5007: [{ validator: checkv3012, trigger: 'blur' }],
+        t5003: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5004: [
+         { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3012, trigger: 'blur' },
+        ],
+        t5005: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3011, trigger: 'blur' },
+        ],
+        t5006: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3011, trigger: 'blur' },
+        ],
+        t5007: [
+          { validator: checkVain, trigger: 'blur' },
+          { validator: checkv3012, trigger: 'blur' },
+        ],
+        t5008: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        t5009: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
         t5010: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkVain, trigger: 'blur' },
         ],
         t5011: [
-          {
-            pattern: /^(?:[1-9]?\d|100)$/,
-            message: '范围0-100',
-            trigger: 'blur',
-          },
+          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+          { validator: checkr6014, trigger: 'blur' },
         ],
         t5012: [
-          { required: true, message: '必填信息不得为空', trigger: 'blur' },
+         { validator: checkVain, trigger: 'blur' },
+        ],
+        t5013: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5014: [
+          { validator: checkVain, trigger: 'blur' },
         ],
         t5015: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
+        t5016: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5017: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5018: [
+         { validator: checkVain, trigger: 'blur' },
+        ],
         t5019: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
         ],
+        t5020: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5021: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5022: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
         t5023: [
           { required: true, message: '必填信息不得为空', trigger: 'blur' },
+        ],
+        t5024: [
+          { validator: checkVain, trigger: 'blur' },
+        ],
+        t5025: [
+          { validator: checkVain, trigger: 'blur' },
         ],
       },
       partIdOption: [],
@@ -2280,11 +2493,6 @@ export default {
       })
     },
     savePartInfo() {
-      this.partInfoSet.add(this.partInfoId2)
-      if (this.partInfoSet.size >= this.totalInfo.g1003) {
-        this.createCaseBtn = true
-        this.partInfoSet.clear()
-      }
       if (this.partTypeVal === '人') {
         this.$refs.partInfoPeoRef.validate(async (valid) => {
           if (!valid) return
@@ -2293,7 +2501,9 @@ export default {
           if (res.data.code !== 200 || res.status !== 200) {
             return this.$message.error('保存失败')
           }
-          this.creatPartPeoList[this.partInfoId2 - 1] = this.partInfoPeo
+          this.creatPartPeoList[this.partInfoId2 - 1] = _.cloneDeep(
+            this.partInfoPeo
+          )
           this.addBtnCount++
           this.$message.success('保存成功')
         })
@@ -2306,7 +2516,9 @@ export default {
             return this.$message.error('保存失败')
           }
           this.addBtnCount++
-          this.creatPartCarList[this.partInfoId2 - 1] = this.partInfoCar
+          this.creatPartCarList[this.partInfoId2 - 1] = _.cloneDeep(
+            this.partInfoCar
+          )
           this.$message.success('保存成功')
         })
       } else if (this.partTypeVal === '二/三轮车') {
@@ -2318,9 +2530,16 @@ export default {
             return this.$message.error('保存失败')
           }
           this.addBtnCount++
-          this.creatPartThList[this.partInfoId2 - 1] = this.partInfoTH
+          this.creatPartThList[this.partInfoId2 - 1] = _.cloneDeep(
+            this.partInfoTH
+          )
           this.$message.success('保存成功')
         })
+      }
+      this.partInfoSet.add(this.partInfoId2)
+      if (this.partInfoSet.size >= this.totalInfo.g1003) {
+        this.createCaseBtn = true
+        this.partInfoSet.clear()
       }
     },
     async createCase() {
@@ -2535,11 +2754,42 @@ export default {
     },
     changeSelectType(opt) {
       this.partTypeVal = opt
+      this.changeSelectId(this.partInfoId2)
     },
-    changeCarFault() {
+    changeCarFault(opt) {
+      this.partInfoCar.v3018 = ''
+      if (opt == '无过失') {
+        this.CarMajorFault2 = dataPro.options30181
+      } else if (opt == '机动车违法') {
+        this.CarMajorFault2 = dataPro.options30182
+      } else if (opt == '机动车非违法过错') {
+        this.CarMajorFault2 = dataPro.options30183
+      } else if (opt == '非机动车违法') {
+        this.CarMajorFault2 = dataPro.options30184
+      } else if (opt == '行人及乘车人违法') {
+        this.CarMajorFault2 = dataPro.options30185
+      } else if (opt == '道路原因') {
+        this.CarMajorFault2 = dataPro.options30186
+      } else if (opt == '意外') {
+        this.CarMajorFault2 = dataPro.options30187
+      } else {
+        this.CarMajorFault2 = dataPro.options30188
+      }
       this.isCarFault = false
     },
-    changeThFault() {
+    changeThFault(opt) {
+      this.partInfoTH.t5009 = ''
+      if (opt == '无过失') {
+        this.THMajorFault2 = this.majorFault2First
+      } else if (opt == '非机动车违法') {
+        this.THMajorFault2 = this.majorFault2Second
+      } else if (opt == '道路原因') {
+        this.THMajorFault2 = this.majorFault2Third
+      } else if (opt == '意外') {
+        this.THMajorFault2 = this.majorFault2Fourth
+      } else {
+        this.THMajorFault2 = this.majorFault2Fifth
+      }
       this.isThFault = false
     },
     thType(arr) {
@@ -2591,8 +2841,10 @@ export default {
       this.majorFault1 = dataPro.majorFault1
       this.majorFault2 = dataPro.majorFault2
       this.priority = dataPro.priority
+      this.options6005 = dataPro.options6005
       this.roadDirection = dataPro.roadDirection
       this.options3021 = dataPro.options3021
+      this.options3017 = dataPro.options3017
       this.options3022 = dataPro.options3022
       this.options3023 = dataPro.options3023
       this.options3026 = dataPro.options3026
@@ -2618,9 +2870,18 @@ export default {
       this.options4013 = dataPro.options4013
 
       this.options4014 = dataPro.options4014
+      this.options4016 = dataPro.options4016
       this.options5002 = dataPro.options5002
       this.options5010 = dataPro.options5010
+      this.options5020 = dataPro.options5020
+      this.options5023 = dataPro.options5023
       this.options5024 = dataPro.options5024
+
+      this.majorFault2First = dataPro.majorFault2First
+      this.majorFault2Second = dataPro.majorFault2Second
+      this.majorFault2Third = dataPro.majorFault2Third
+      this.majorFault2Fourth = dataPro.majorFault2Fourth
+      this.majorFault2Fifth = dataPro.majorFault2Fifth
     },
   },
 }

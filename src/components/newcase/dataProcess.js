@@ -13,6 +13,10 @@ const dataPro = {
       label: '机动二/三轮车与汽车相撞',
     },
     {
+      value: '汽车单车事故',
+      label: '汽车单车事故',
+    },
+    {
       value: '汽车撞静止车辆',
       label: '汽车撞静止车辆',
     },
@@ -168,12 +172,12 @@ const dataPro = {
       label: '12点钟方向',
     },
     {
-      value: '碰撞前已倒地',
-      label: '碰撞前已倒地',
+      value: '碰撞前已摔倒在地面',
+      label: '碰撞前已摔倒在地面',
     },
     {
-      value: '不适用',
-      label: '不适用',
+      value: '000-不适用',
+      label: '000-不适用',
     },
   ],
   // 道路信息
@@ -335,11 +339,96 @@ const dataPro = {
       label: '差，对事故产生一定影响',
     },
     {
-      value: '未知',
-      label: '未知',
+      value: '999-未知',
+      label: '999-未知',
     },
   ],
-  
+  options6005: [
+    {
+      value: '1',
+      label: '1'
+    },
+    {
+      value: '2',
+      label: '2'
+    },
+    {
+      value: '3',
+      label: '3'
+    },
+    {
+      value: '4',
+      label: '4'
+    },
+    {
+      value: '5',
+      label: '5'
+    },
+    {
+      value: '6',
+      label: '6'
+    },
+    {
+      value: '7',
+      label: '7'
+    },
+    {
+      value: '8',
+      label: '8'
+    },
+    {
+      value: '9',
+      label: '9'
+    },
+    {
+      value: '10',
+      label: '10'
+    },
+    {
+      value: '11',
+      label: '11'
+    },
+    {
+      value: '12',
+      label: '12'
+    },
+    {
+      value: '13',
+      label: '13'
+    },
+    {
+      value: '14',
+      label: '14'
+    },
+    {
+      value: '15',
+      label: '15'
+    },
+    {
+      value: '16',
+      label: '16'
+    },
+    {
+      value: '17',
+      label: '17'
+    },
+    {
+      value: '18',
+      label: '18'
+    },
+    {
+      value: '19',
+      label: '19'
+    },
+    {
+      value: '20',
+      label: '20'
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用'
+    },
+  ],
   // 非机动车道
   nonMotorizedLane: [
     {
@@ -454,6 +543,10 @@ const dataPro = {
   ],
   // 现场有何种交通警告标志
   warningSign: [
+    {
+      value: '没有',
+      label: '没有',
+    },
     {
       value: '交叉路口',
       label: '交叉路口',
@@ -591,12 +684,12 @@ const dataPro = {
       label: '事故易发路段',
     },
     {
-      value: '慢性',
-      label: '慢性',
+      value: '慢行',
+      label: '慢行',
     },
     {
-      value: '障碍物',
-      label: '障碍物',
+      value: '注意障碍物',
+      label: '注意障碍物',
     },
     {
       value: '注意危险',
@@ -623,8 +716,8 @@ const dataPro = {
       label: '注意保持车距',
     },
     {
-      value: '注意分离式车道',
-      label: '注意分离式车道',
+      value: '注意分离式道路',
+      label: '注意分离式道路',
     },
     {
       value: '注意合流',
@@ -642,8 +735,16 @@ const dataPro = {
       value: '注意前方车辆排队',
       label: '注意前方车辆排队',
     },
+    {
+      value: '888-其他',
+      label: '888-其他',
+    },
   ],
   prohibitionSign: [
+    {
+      value: '没有',
+      label: '没有',
+    },
     {
       value: '交叉路口',
       label: '交叉路口',
@@ -684,9 +785,17 @@ const dataPro = {
       value: '注意行人',
       label: '注意行人',
     },
+    {
+      value: '888-其他',
+      label: '888-其他',
+    },
   ],
   // 现场有何种交通禁令标志
   trafficProhibitionSign: [
+    {
+      value: '没有',
+      label: '没有',
+    },
     {
       value: '停车让行',
       label: '停车让行',
@@ -708,60 +817,64 @@ const dataPro = {
       label: '禁止驶入',
     },
     {
-      value: '禁止机动车驶人',
-      label: '禁止机动车驶人',
+      value: '禁止机动车驶入',
+      label: '禁止机动车驶入',
     },
     {
-      value: '禁止载货汽车驶人',
-      label: '禁止载货汽车驶人',
+      value: '禁止载货汽车驶入',
+      label: '禁止载货汽车驶入',
     },
     {
       value: '禁止电动三轮车驶入',
       label: '禁止电动三轮车驶入',
     },
     {
-      value: '禁止大型客车驶人',
-      label: '禁止大型客车驶人',
+      value: '禁止大型客车驶入',
+      label: '禁止大型客车驶入',
     },
     {
-      value: '禁止小型客车驶人',
-      label: '禁止小型客车驶人',
+      value: '禁止小型客车驶入',
+      label: '禁止小型客车驶入',
     },
     {
-      value: '禁止挂车、半挂车驶人',
-      label: '禁止挂车、半挂车驶人',
+      value: '禁止挂车、半挂车驶入',
+      label: '禁止挂车、半挂车驶入',
     },
     {
       value: '禁止拖拉机驶入.',
       label: '禁止拖拉机驶入',
     },
     {
-      value: '禁止三轮汽车、低速货车驶人',
-      label: '禁止三轮汽车、低速货车驶人',
+      value: '禁止三轮汽车、低速货车驶入',
+      label: '禁止三轮汽车、低速货车驶入',
     },
     {
-      value: '禁止摩托车驶人',
-      label: '禁止摩托车驶人',
+      value: '禁止摩托车驶入',
+      label: '禁止摩托车驶入',
+    },
+    {
+      value: '禁止某两种车驶入',
+      label: '禁止某两种车驶入',
     },
     {
       value: '禁止非机动车进入',
       label: '禁止非机动车进入',
     },
     {
-      value: '禁止畜力车进人.',
-      label: '禁止畜力车进人',
+      value: '禁止畜力车进入.',
+      label: '禁止畜力车进入',
     },
     {
       value: '禁止人力客运三轮车进入',
       label: '禁止人力客运三轮车进入',
     },
     {
-      value: '禁止人力货运三轮车进人.',
-      label: '禁止人力货运三轮车进人',
+      value: '禁止人力货运三轮车进入.',
+      label: '禁止人力货运三轮车进入',
     },
     {
-      value: '禁止人力车进人',
-      label: '禁止人力车进人',
+      value: '禁止人力车进入',
+      label: '禁止人力车进入',
     },
     {
       value: '禁止行人进入',
@@ -844,8 +957,8 @@ const dataPro = {
       label: '停车检查',
     },
     {
-      value: '禁止运输危险物品车辆驶人',
-      label: '禁止运输危险物品车辆驶人',
+      value: '禁止运输危险物品车辆驶入',
+      label: '禁止运输危险物品车辆驶入',
     },
     {
       value: '海关',
@@ -874,6 +987,10 @@ const dataPro = {
     {
       value: '区域禁止停车解除',
       label: '区域禁止停车解除',
+    },
+    {
+      value: '888-其他',
+      label: '888-其他',
     },
   ],
   // 道路的线形
@@ -1067,10 +1184,15 @@ const dataPro = {
     {
       value: '是，因为建筑',
       label: '是，因为建筑',
+      label: '是，因为建筑',
     },
     {
       value: '是，因为车辆',
       label: '是，因为车辆',
+    },
+    {
+      value: '是，因为天气',
+      label: '是，因为天气',
     },
     {
       value: '888-是，其他',
@@ -1170,7 +1292,7 @@ const dataPro = {
     {
       value: '888-其他',
       label: '888-其他',
-    }      
+    }
   ],
   // 道路状况评估
   roadConditionAssessment: [
@@ -1189,7 +1311,7 @@ const dataPro = {
     {
       value: '888-其他',
       label: '888-其他',
-    }      
+    }
   ],
   // 是否有建筑设施
   buildingFacilities: [
@@ -1208,7 +1330,7 @@ const dataPro = {
     {
       value: '888-其他',
       label: '888-其他',
-    }      
+    }
   ],
   // 交通限速设施
   TraSpeedLimitFac: [
@@ -1231,7 +1353,7 @@ const dataPro = {
     {
       value: '888-其他',
       label: '888-其他',
-    }      
+    }
   ],
   // 车辆是否冲到相应路边
   rushRoadSide: [
@@ -1246,7 +1368,7 @@ const dataPro = {
     {
       value: '000-不适用',
       label: '000-不适用',
-    } 
+    }
   ],
   // 是否为变宽路段
   wideningSection: [
@@ -1261,10 +1383,10 @@ const dataPro = {
     {
       value: '999-未知',
       label: '999-未知',
-    } 
+    }
   ],
   // 是否有为变窄路段
-   narrowingSection: [
+  narrowingSection: [
     {
       value: '否',
       label: '否',
@@ -1276,10 +1398,10 @@ const dataPro = {
     {
       value: '999-未知',
       label: '999-未知',
-    } 
+    }
   ],
   // 是否有隧道和匝道口
-   tunnel: [
+  tunnel: [
     {
       value: '否',
       label: '否',
@@ -1291,1054 +1413,1406 @@ const dataPro = {
     {
       value: '999-未知',
       label: '999-未知',
-    } 
+    }
   ],
 
   // 参与方信息---车
   // 类型（车辆类型）
   carType: [
     {
-      value:'乘用车',
-      label:'乘用车'
+      value: '乘用车',
+      label: '乘用车'
     },
     {
-      value:'客车',
-      label:'客车'
+      value: '客车',
+      label: '客车'
     },
     {
-      value:'货车',
-      label:'货车'
+      value: '货车',
+      label: '货车'
     },
     {
-      value:'半挂牵引车',
-      label:'半挂牵引车'
+      value: '半挂牵引车',
+      label: '半挂牵引车'
     },
     {
-      value:'半挂牵引车及挂车',
-      label:'半挂牵引车及挂车'
+      value: '半挂牵引车及挂车',
+      label: '半挂牵引车及挂车'
     },
     {
-      value:'拖拉机运输机组',
-      label:'拖拉机运输机组'
+      value: '拖拉机运输机组',
+      label: '拖拉机运输机组'
     },
     {
-      value:'轮式专用机械',
-      label:'轮式专用机械'
+      value: '轮式专用机械',
+      label: '轮式专用机械'
     }
   ],
   // 是否有EDR报告
   EDR: [
     {
-      value:'是',
-      label:'是'
+      value: '是',
+      label: '是'
     },
     {
-      value:'否',
-      label:'否'
+      value: '否',
+      label: '否'
     },
   ],
   // 车辆损坏情况
   carDamage: [
     {
-      value:'无损坏',
-      label:'无损坏'
+      value: '无损坏',
+      label: '无损坏'
     },
     {
-      value:'轻微刮擦',
-      label:'轻微刮擦'
-    },    {
-      value:'轻微变形',
-      label:'轻微变形'
+      value: '轻微刮擦',
+      label: '轻微刮擦'
+    }, {
+      value: '轻微变形',
+      label: '轻微变形'
     },
     {
-      value:'局部明显变形',
-      label:'局部明显变形'
-    },    {
-      value:'大面积严重变形',
-      label:'大面积严重变形'
+      value: '局部明显变形',
+      label: '局部明显变形'
+    }, {
+      value: '大面积严重变形',
+      label: '大面积严重变形'
     },
     {
-      value:'报废',
-      label:'报废'
-    },    {
-      value:'烧毁',
-      label:'烧毁'
+      value: '报废',
+      label: '报废'
+    }, {
+      value: '烧毁',
+      label: '烧毁'
     },
     {
-      value:'888-其他',
-      label:'888-其他'
+      value: '888-其他',
+      label: '888-其他'
     },
   ],
   // 3008车内人员伤亡情况
   casualties: [
     {
-      value:'有人员死亡',
-      label:'有人员死亡'
-    },    {
-      value:'仅受伤',
-      label:'仅受伤'
+      value: '有人员死亡',
+      label: '有人员死亡'
+    }, {
+      value: '仅受伤',
+      label: '仅受伤'
     },
     {
-      value:'未受伤',
-      label:'未受伤'
-    },    {
-      value:'未知',
-      label:'未知'
+      value: '未受伤',
+      label: '未受伤'
+    }, {
+      value: '999-未知',
+      label: '999-未知'
     }
   ],
   // 参与方颜色（车辆颜色）
-  carColor:[
-      {
-        value:'黄色',
-        label:'黄色'
-      },
-      {
-        value:'橙色',
-        label:'橙色'
-      },
-      {
-        value:'红色',
-        label:'红色'
-      },
-      {
-        value:'紫色',
-        label:'紫色'
-      },
-      {
-        value:'蓝色',
-        label:'蓝色'
-      },
-      {
-        value:'绿色',
-        label:'绿色'
-      },
-      {
-        value:'灰色',
-        label:'灰色'
-      },
-      {
-        value:'棕色',
-        label:'棕色'
-      },
-      {
-        value:'白色',
-        label:'白色'
-      },
-      {
-        value:'黑色',
-        label:'黑色'
-      },
-      {
-        value:'银色',
-        label:'银色'
-      },
-      {
-        value:'香槟色',
-        label:'香槟色'
-      },
-      {
-        value:'888-其他',
-        label:'888-其他'
-      },
-      {
-        value:'000-不适用',
-        label:'000-不适用'
-      }
+  carColor: [
+    {
+      value: '黄色',
+      label: '黄色'
+    },
+    {
+      value: '橙色',
+      label: '橙色'
+    },
+    {
+      value: '红色',
+      label: '红色'
+    },
+    {
+      value: '紫色',
+      label: '紫色'
+    },
+    {
+      value: '蓝色',
+      label: '蓝色'
+    },
+    {
+      value: '绿色',
+      label: '绿色'
+    },
+    {
+      value: '灰色',
+      label: '灰色'
+    },
+    {
+      value: '棕色',
+      label: '棕色'
+    },
+    {
+      value: '白色',
+      label: '白色'
+    },
+    {
+      value: '黑色',
+      label: '黑色'
+    },
+    {
+      value: '银色',
+      label: '银色'
+    },
+    {
+      value: '香槟色',
+      label: '香槟色'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用'
+    }
   ],
   // 主要过错1
   majorFault1: [
-    {
-      value:'无过失',
-      label:'无过失'
-    },
-    {
-      value:'超速行驶',
-      label:'超速行驶'
-    },
-    {
-      value:'酒后驾驶',
-      label:'酒后驾驶'
-    },
-    {
-      value:'逆向行驶',
-      label:'逆向行驶'
-    },
-    {
-      value:'疲劳驾驶',
-      label:'疲劳驾驶'
-    },
-    {
-      value:'违法变更车道',
-      label:'违法变更车道'
-    },
-    {
-      value:'违法超车',
-      label:'违法超车'
-    },
-    {
-      value:'违法倒车',
-      label:'违法倒车'
-    },
-    {
-      value:'违法掉头',
-      label:'违法掉头'
-    },
-    {
-      value:'违法会车',
-      label:'违法会车'
-    },
-    {
-      value:'违法牵引',
-      label:'违法牵引'
-    },
-    {
-      value:'违法抢行',
-      label:'违法抢行'
-    },
-    {
-      value:'违法上道路行驶',
-      label:'违法上道路行驶'
-    },
-    {
-      value:'违法停车',
-      label:'违法停车'
-    },
-    {
-      value:'违法占道行驶',
-      label:'违法占道行驶'
-    },
-    {
-      value:'违法装载',
-      label:'违法装载'
-    },
-    {
-      value:'违反交通信号',
-      label:'违反交通信号'
-    },
-    {
-      value:'未按规定让行',
-      label:'未按规定让行'
-    },
-    {
-      value:'无证驾驶',
-      label:'无证驾驶'
-    },
-    {
-      value:'不按规定使用灯光',
-      label:'不按规定使用灯光'
-    },
-    {
-      value:'其他影响安全行为',
-      label:'其他影响安全行为'
-    },
-    {
-      value:'未保持安全车距离',
-      label:'未保持安全车距离'
-    },
-    {
-      value:'制动不当',
-      label:'制动不当'
-    },
-    {
-      value:'转向不当',
-      label:'转向不当'
-    },
-    {
-      value:'油门控制不当',
-      label:'油门控制不当'
-    },
-    {
-      value:'其他操作不当',
-      label:'其他操作不当'
-    },
-    {
-      value:'未设置道路安全措施',
-      label:'未设置道路安全措施'
-    },
-    {
-      value:'安全设施损坏灭失',
-      label:'安全设施损坏灭失'
-    },
-    {
-      value:'道路缺陷',
-      label:'道路缺陷'
-    },
-    {
-      value:'其他道路原因',
-      label:'其他道路原因'
-    },
-    {
-      value:'自然灾害',
-      label:'自然灾害'
-    },
-    {
-      value:'机械故障',
-      label:'机械故障'
-    },
-    {
-      value:'爆胎',
-      label:'爆胎'
-    },
-    {
-      value:'其他意外',
-      label:'其他意外'
-    },
-    {
-      value:'888-其他',
-      label:'888-其他'
-    },
-    {
-      value:'999-未知',
-      label:'999-未知'
-    }
-  ],
-  // 主要过错2
-  majorFault2: [
-
+  {
+    value: '无过失',
+    label: '无过失',
+  },
+  {
+    value: '非机动车违法',
+    label: '非机动车违法',
+  },
+  {
+    value: '道路原因',
+    label: '道路原因',
+  },
+  {
+    value: '意外',
+    label: '意外',
+    
+  },
+  {
+    value: '其他',
+    label: '其他',
+  }
   ],
   // 优先权
   priority: [
     {
-      value:'有',
-      label:'有'
+      value: '有',
+      label: '有'
     },
     {
-      value:'没有',
-      label:'没有'
+      value: '没有',
+      label: '没有'
     },
   ],
   // 所在道路方向
   roadDirection: [
     {
-      value:'停着不动',
-      label:'停着不动'
+      value: '停着不动',
+      label: '停着不动'
     },
     {
-      value:'直线',
-      label:'直线'
+      value: '直线',
+      label: '直线'
     },
     {
-      value:'左转直线',
-      label:'左转直线'
+      value: '左转曲线',
+      label: '左转曲线'
     },
     {
-      value:'右转曲线',
-      label:'右转曲线'
+      value: '右转曲线',
+      label: '右转曲线'
     },
     {
-      value:'S型曲线',
-      label:'S型曲线'
+      value: 'S型曲线',
+      label: 'S型曲线'
+    }
+  ],
+  options3017: [
+    {
+      value: '无过失',
+      label: '无过失',
+    },
+    {
+      value: '机动车违法',
+      label: '机动车违法',
+    },
+    {
+      value: '机动车非违法过错',
+      label: '机动车非违法过错',
+    },
+    {
+      value: '非机动车违法',
+      label: '非机动车违法',
+      
+    },
+    {
+      value: '行人及乘车人违法',
+      label: '行人及乘车人违法',
+    },
+    {
+      value: '道路原因',
+      label: '道路原因',
+    },
+    {
+      value: '意外',
+      label: '意外',
+    },
+    {
+      value: '其他',
+      label: '其他',
+    }
+  ],
+  options30181: [
+    {
+      value: '000-无过失',
+      label: '000-无过失',
+    }
+  ],
+  options30182: [
+    {
+      value: '超速行驶',
+      label: '超速行驶'
+    },
+    {
+      value: '酒后驾驶',
+      label: '酒后驾驶'
+    },
+    {
+      value: '逆向行驶',
+      label: '逆向行驶'
+    },
+    {
+      value: '疲劳驾驶',
+      label: '疲劳驾驶'
+    },
+    {
+      value: '违法变更车道',
+      label: '违法变更车道'
+    },
+    {
+      value: '违法超车',
+      label: '违法超车'
+    },
+    {
+      value: '违法倒车',
+      label: '违法倒车'
+    },
+    {
+      value: '违法掉头',
+      label: '违法掉头'
+    },
+    {
+      value: '违法会车',
+      label: '违法会车'
+    },
+    {
+      value: '违法牵引',
+      label: '违法牵引'
+    },
+    {
+      value: '违法抢行',
+      label: '违法抢行'
+    },
+    {
+      value: '违法上道路行驶',
+      label: '违法上道路行驶'
+    },
+    {
+      value: '违法停车',
+      label: '违法停车'
+    },
+    {
+      value: '违法占道行驶',
+      label: '违法占道行驶'
+    },
+    {
+      value: '违法装载',
+      label: '违法装载'
+    },
+    {
+      value: '违法装载超限及危险品运输',
+      label: '违法装载超限及危险品运输'
+    },
+    {
+      value: '违反交通信号',
+      label: '违反交通信号'
+    },
+    {
+      value: '未按规定让行',
+      label: '未按规定让行'
+    },
+    {
+      value: '无证驾驶',
+      label: '无证驾驶'
+    },
+    {
+      value: '不按规定使用灯光',
+      label: '不按规定使用灯光'
+    },
+    {
+      value: '其他影响安全行为',
+      label: '其他影响安全行为'
+    },
+    {
+      value: '未保持安全车距离',
+      label: '未保持安全车距离'
+    },
+  ],
+  options30183: [
+    {
+      value: '制动不当',
+      label: '制动不当'
+    },
+    {
+      value: '转向不当',
+      label: '转向不当'
+    },
+    {
+      value: '油门控制不当',
+      label: '油门控制不当'
+    },
+    {
+      value: '其他操作不当',
+      label: '其他操作不当'
+    },
+  ],
+  options30184: [
+    {
+      value: '超速行驶',
+      label: '超速行驶'
+    },
+    {
+      value: '酒后驾驶',
+      label: '酒后驾驶'
+    },
+    {
+      value: '逆向行驶',
+      label: '逆向行驶'
+    },
+    {
+      value: '违法超车',
+      label: '违法超车'
+    },
+    {
+      value: '违法牵引',
+      label: '违法牵引'
+    },
+    {
+      value: '违法抢行',
+      label: '违法抢行'
+    },
+    {
+      value: '违法上道路行驶',
+      label: '违法上道路行驶'
+    },
+    {
+      value: '违法停车',
+      label: '违法停车'
+    },
+    {
+      value: '违法占道行驶',
+      label: '违法占道行驶'
+    },
+    {
+      value: '违法装载',
+      label: '违法装载'
+    },
+    {
+      value: '违反交通信号',
+      label: '违反交通信号'
+    },
+    {
+      value: '违反交通信号',
+      label: '违反交通信号'
+    },
+    {
+      value: '无证驾驶',
+      label: '无证驾驶'
+    },
+    {
+      value: '其他影响安全行为',
+      label: '其他影响安全行为'
+    }
+  ],
+  options30185: [
+    {
+      value: '违法上道路行驶',
+      label: '违法上道路行驶'
+    },
+    {
+      value: '违法占道',
+      label: '违法占道'
+    },
+    {
+      value: '违法装载超限及危险品运输',
+      label: '违法装载超限及危险品运输'
+    },
+    {
+      value: '违反交通信号',
+      label: '违反交通信号'
+    },
+    {
+      value: '其他影响安全行为',
+      label: '其他影响安全行为'
+    },
+  ],
+  options30186: [
+    {
+      value: '未设置道路安全措施',
+      label: '未设置道路安全措施'
+    },
+    {
+      value: '安全设施损坏灭失',
+      label: '安全设施损坏灭失'
+    },
+    {
+      value: '道路缺陷',
+      label: '道路缺陷'
+    },
+    {
+      value: '其他道路原因',
+      label: '其他道路原因'
+    },
+  ],
+  options30187: [
+    {
+      value: '自然灾害',
+      label: '自然灾害'
+    },
+    {
+      value: '机件故障',
+      label: '机件故障'
+    },
+    {
+      value: '爆胎',
+      label: '爆胎'
+    },
+    {
+      value: '其他意外',
+      label: '其他意外'
+    },
+  ],
+  options30188: [
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
     }
   ],
   // 3021事故前车辆要避撞的对向
   options3021: [
     {
-      value:'道路上的物品',
-      label:'道路上的物品'
+      value: '道路上的物品',
+      label: '道路上的物品'
     },
     {
-      value:'极差（极颠簸）的路面',
-      label:'极差（极颠簸）的路面'
+      value: '极差（极颠簸）的路面',
+      label: '极差（极颠簸）的路面'
     },
     {
-      value:'道路上的动物',
-      label:'道路上的动物'
+      value: '道路上的动物',
+      label: '道路上的动物'
     },
     {
-      value:'道路上的车辆',
-      label:'道路上的车辆'
+      value: '道路上的车辆',
+      label: '道路上的车辆'
     },
     {
-      value:'道路上的非机动车',
-      label:'道路上的非机动车'
+      value: '道路上的非机动车',
+      label: '道路上的非机动车'
     },
     {
-      value:'肇事逃逸',
-      label:'肇事逃逸'
+      value: '道路上的行人',
+      label: '道路上的行人'
     },
     {
-      value:'驾驶员不在场',
-      label:'驾驶员不在场'
+      value: '其他避撞措施',
+      label: '其他避撞措施'
     },
     {
-      value:'其他避撞措施',
-      label:'其他避撞措施'
+      value: '999-未知',
+      label: '999-未知'
     },
     {
-      value:'未知',
-      label:'未知'
-    },
-
-    {
-      value:'没有避撞措施',
-      label:'没有避撞措施'
-    },
-    {
-      value:'与来车无直接接触',
-      label:'与来车无直接接触'
+      value: '没有避撞措施',
+      label: '没有避撞措施'
     }
   ],
   // 3022事故前车辆的避撞行为
   options3022: [
     {
-      value:'驾驶员不在场',
-      label:'驾驶员不在场'
+      value: '驾驶员不在场',
+      label: '驾驶员不在场'
     },
     {
-      value:'没有避撞措施',
-      label:'没有避撞措施'
+      value: '没有避撞措施',
+      label: '没有避撞措施'
     },
     {
-      value:'刹车',
-      label:'刹车'
+      value: '刹车',
+      label: '刹车'
     },
     {
-      value:'释放刹车踏板',
-      label:'释放刹车踏板'
+      value: '释放刹车踏板',
+      label: '释放刹车踏板'
     },
     {
-      value:'转向',
-      label:'转向'
+      value: '转向',
+      label: '转向'
     },
     {
-      value:'刹车并转向',
-      label:'刹车并转向'
+      value: '刹车并转向',
+      label: '刹车并转向'
     },
     {
-      value:'加速',
-      label:'加速'
+      value: '加速',
+      label: '加速'
     },
     {
-      value:'加速并转向',
-      label:'加速并转向'
+      value: '加速并转向',
+      label: '加速并转向'
     },
     {
-      value:'其他',
-      label:'其他'
+      value: '其他',
+      label: '其他'
     },
     {
-      value:'未知',
-      label:'未知'
+      value: '999-未知',
+      label: '999-未知'
     }
   ],
   // 3023是否有视野盲区（车外）
   options3023: [
     {
-      value:'1',
-      label:'否'
+      value: '无',
+      label: '无'
     },
     {
-      value:'2',
-      label:'隔离带造成'
+      value: '隔离带造成',
+      label: '隔离带造成'
     },
     {
-      value:'3',
-      label:'路边树木造成'
+      value: '路边树木造成',
+      label: '路边树木造成'
     },
     {
-      value:'4',
-      label:'路上放置的牌子造成'
+      value: '路上放置的牌子（如广告牌、施工牌等）造成',
+      label: '路上放置的牌子（如广告牌、施工牌等）造成'
     },
     {
-      value:'5',
-      label:'车外人员造成'
+      value: '车外人员造成',
+      label: '车外人员造成'
     },
     {
-      value:'6',
-      label:'车外其他车辆造成'
+      value: '车外其他车辆造成',
+      label: '车外其他车辆造成'
     },
     {
-      value:'7',
-      label:'路上固定建筑物造成'
+      value: '路上固定建筑物造成',
+      label: '路上固定建筑物造成'
     },
     {
-      value:'888',
-      label:'其他'
+      value: '路上临时建筑物造成',
+      label: '路上临时建筑物造成'
     },
     {
-      value:'999',
-      label:'未知'
-    }
+      value: '888-其他',
+      label: '888-其他'
+    },
   ],
   // 3026事故发生前车辆运动类型
   options3026: [
     {
-      value:'起步',
-      label:'起步'
+      value: '起步',
+      label: '起步'
     },
     {
-      value:'超车',
-      label:'超车'
+      value: '超车',
+      label: '超车'
     },
     {
-      value:'掉头',
-      label:'掉头'
+      value: '掉头',
+      label: '掉头'
     },
     {
-      value:'倒车',
-      label:'倒车'
+      value: '倒车',
+      label: '倒车'
     },
     {
-      value:'向右变道',
-      label:'向右变道'
+      value: '向右变道',
+      label: '向右变道'
     },
     {
-      value:'向左变道',
-      label:'向左变道'
+      value: '向左变道',
+      label: '向左变道'
     },
     {
-      value:'紧急停车',
-      label:'紧急停车'
+      value: '紧急停车',
+      label: '紧急停车'
     },
     {
-      value:'静止',
-      label:'静止'
+      value: '静止',
+      label: '静止'
     },
     {
-      value:'泊车中',
-      label:'泊车中'
+      value: '泊车中',
+      label: '泊车中'
     },
     {
-      value:'直行加速',
-      label:'直行加速'
+      value: '直行加速',
+      label: '直行加速'
     },
     {
-      value:'直行减速',
-      label:'直行减速'
+      value: '直行减速',
+      label: '直行减速'
     },
     {
-      value:'匀速直行',
-      label:'匀速直行'
+      value: '匀速直行',
+      label: '匀速直行'
     },
     {
-      value:'曲线行驶',
-      label:'曲线行驶'
+      value: '曲线行驶',
+      label: '曲线行驶'
     },
     {
-      value:'左转',
-      label:'左转'
+      value: '左转',
+      label: '左转'
     },
     {
-      value:'右转',
-      label:'右转'
+      value: '右转',
+      label: '右转'
     },
     {
-      value:'其他',
-      label:'其他'
+      value: '888-其他',
+      label: '888-其他'
     },
     {
-      value:'999-未知',
-      label:'999-未知'
+      value: '999-未知',
+      label: '999-未知'
     },
   ],
   // 3027开始反应到碰撞前是否采取转向措施
   options3027: [
     {
-      value:'是',
-      label:'是'
+      value: '是',
+      label: '是'
     },
     {
-      value:'否',
-      label:'否'
+      value: '否',
+      label: '否'
     },
     {
-      value:'999-未知',
-      label:'999-未知'
+      value: '999-未知',
+      label: '999-未知'
     },
   ],
   // 3028是否使用安全带
   options3028: [
     {
-      value:'是，正确使用',
-      label:'是，正确使用'
+      value: '是，正确使用',
+      label: '是，正确使用'
     },
     {
-      value:'是，错误使用',
-      label:'是，错误使用'
+      value: '是，错误使用',
+      label: '是，错误使用'
     },
     {
-      value:'未使用',
-      label:'未使用'
+      value: '未使用',
+      label: '未使用'
     },
     {
-      value:'未知',
-      label:'未知'
+      value: '999-未知',
+      label: '999-未知'
     },
   ],
   // 3029安全气囊是否展开
   options3029: [
     {
-      value:'未展开',
-      label:'未展开'
+      value: '未展开',
+      label: '未展开'
     },
     {
-      value:'正常展开',
-      label:'正常展开'
+      value: '正常展开',
+      label: '正常展开'
     },
     {
-      value:'异常展开',
-      label:'异常展开'
+      value: '异常展开',
+      label: '异常展开'
     },
     {
-      value:'其他',
-      label:'其他'
+      value: '888-其他',
+      label: '888-其他'
     },
   ],
   // 3030是否有行人主动保护装置
   options3030: [
     {
-      value:'无',
-      label:'无'
+      value: '无',
+      label: '无'
     },
     {
-      value:'机械控制可抬升的发动机罩',
-      label:'机械控制可抬升的发动机罩'
+      value: '机械控制可抬升的发动机罩',
+      label: '机械控制可抬升的发动机罩'
     },
     {
-      value:'爆燃式可抬升的发动机罩',
-      label:'爆燃式可抬升的发动机罩'
+      value: '爆燃式可抬升的发动机罩',
+      label: '爆燃式可抬升的发动机罩'
     },
     {
-      value:'行人保护气囊',
-      label:'行人保护气囊'
+      value: '行人保护气囊',
+      label: '行人保护气囊'
     },
     {
-      value:'其他',
-      label:'其他'
+      value: '行人保护保险杠',
+      label: '行人保护保险杠'
     },
     {
-      value:'000-不适用',
-      label:'000-不适用'
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用'
     }
   ],
-    // 3031是否有ABS防抱死系统
-    // 3032是否有ABS防抱死系统
-    // 3033是否有ABS防抱死系统
-    // 3034是否有ABS防抱死系统
-    // 4015是否因为视野盲区造成事故
-    // 4016是否由停靠车辆造成行人的视野盲区
-    // 4017是否有其他造成行人视线盲区的物体
-    // 4018开始反应到碰撞前是否有应急姿态
-    // 4019行人是否从障碍物后穿出
-    // 4020行人意识到危险之前是否加速
-    // 4021事故前行人行走方向是否改变
-    optionsTF: [
-      {
-        value:'无',
-        label:'无'
-      },
-      {
-        value:'有',
-        label:'有'
-      },
-      {
-        value:'999-未知',
-        label:'999-未知'
-      }
-    ],
-    // 3036胎压监测装置
-    // 3037胎压监测装置
-    // 3038胎压监测装置
-    // 3039胎压监测装置
-    // 3040胎压监测装置
-    // 3041胎压监测装置
-    options3036: [
-      {
-        value:'无',
-        label:'无'
-      },
-      {
-        value:'有，关闭',
-        label:'有，关闭'
-      },
-      {
-        value:'有，开着',
-        label:'有，开着'
-      },
-      {
-        value:'有，未知是否使用',
-        label:'有，未知是否使用'
-      },
-      {
-        value:'999-未知',
-        label:'999-未知'
-      },
-    ],
+  // 3031是否有ABS防抱死系统
+  // 3032是否有ABS防抱死系统
+  // 3033是否有ABS防抱死系统
+  // 3034是否有ABS防抱死系统
+  optionsTF: [
+    {
+      value: '无',
+      label: '无'
+    },
+    {
+      value: '有',
+      label: '有'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ],
+  // 3036胎压监测装置
+  // 3037胎压监测装置
+  // 3038胎压监测装置
+  // 3039胎压监测装置
+  // 3040胎压监测装置
+  // 3041胎压监测装置
+  
+  options3036: [
+    {
+      value: '无',
+      label: '无'
+    },
+    {
+      value: '有，关闭',
+      label: '有，关闭'
+    },
+    {
+      value: '有，开着',
+      label: '有，开着'
+    },
+    {
+      value: '有，未知是否使用',
+      label: '有，未知是否使用'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    },
+  ],
 
-    // 参与方基本信息-行人   
-    options4002: [
-      {
-        value:'男性',
-        label:'男性'
-      },
-      {
-        value:'女性',
-        label:'女性'
-      },
-      {
-        value:'未知',
-        label:'未知'
-      }
-    ],
-    // 4003人员伤亡情况
-    options4003: [
-      {
-        value:'轻伤',
-        label:'轻伤'
-      },
-      {
-        value:'重伤',
-        label:'重伤'
-      },
-      {
-        value:'死亡',
-        label:'死亡'
-      },
-      {
-        value:'未受伤',
-        label:'未受伤'
-      }
-    ],
-    // 4005参与方颜色（衣着颜色）
-    options4005: [
-      {
-        value:'黄色',
-        label:'黄色'
-      },
-      {
-        value:'橙色',
-        label:'橙色'
-      },
-      {
-        value:'红色',
-        label:'红色'
-      },
-      {
-        value:'紫色',
-        label:'紫色'
-      },
-      {
-        value:'蓝色',
-        label:'蓝色'
-      },
-      {
-        value:'绿色',
-        label:'绿色'
-      },
-      {
-        value:'灰色',
-        label:'灰色'
-      },
-      {
-        value:'棕色',
-        label:'棕色'
-      },
-      {
-        value:'白色',
-        label:'白色'
-      },
-      {
-        value:'黑色',
-        label:'黑色'
-      },
-      {
-        value:'银色',
-        label:'银色'
-      },
-      {
-        value:'香槟色',
-        label:'香槟色'
-      },
-      {
-        value:'888-其他',
-        label:'888-其他'
-      },
-      {
-        value:'000-不适用',
-        label:'000-不适用'
-      }
-    ],
-    // 4006黑暗处或夜间衣物可见性 
-    options4006: [
-      {
-        value:'明亮的',
-        label:'明亮的'
-      },
-      {
-        value:'深色的/不可见',
-        label:'深色的/不可见'
-      },
-      {
-        value:'反光的',
-        label:'反光的'
-      },
-      {
-        value:'发光的',
-        label:'发光的'
-      },
-      {
-        value:'其他',
-        label:'其他'
-      }
-    ],
-    // 4007事故发生地点（行人被撞地点）
-    options4007: [
-      {
-        value: '人行道',
-        label: '人行道'
-      },
-      {
-        value: '非机动车道',
-        label: '非机动车道'
-      },
-      {
-        value: '机动车道',
-        label: '机动车道'
-      },
-      {
-        value: '高速/高架',
-        label: '高速/高架'
-      },
-      {
-        value: '其他',
-        label: '其他'
-      }
-    ],
-    // 4008行人穿越机动车道位置
-    options4008: [
-      {
-        value: '未穿越',
-        label: '未穿越'
-      },
-      {
-        value: '有红绿灯处',
-        label: '有红绿灯处'
-      },
-      {
-        value: '斑马线处',
-        label: '斑马线处'
-      },
-      {
-        value: '行人专用通道',
-        label: '行人专用通道'
-      },
-      {
-        value: '无行人过街保护的机动车道路',
-        label: '无行人过街保护的机动车道路'
-      },
-      {
-        value: '其他',
-        label: '其他'
-      },
-      {
-        value: '未知',
-        label: '未知'
-      }
-    ],
-    // 4009行人行走方向 
-    options4009: [
-      {
-        value: '从车辆左侧',
-        label: '从车辆左侧'
-      },
-      {
-        value: '从车辆右侧',
-        label: '从车辆右侧'
-      },
-      {
-        value: '沿车辆运动方向',
-        label: '沿车辆运动方向'
-      },
-      {
-        value: '静止',
-        label: '静止'
-      }
-    ],
-    // 4010行人运动状态
-    options4010: [
-      {
-        value: '静止',
-        label: '静止'
-      },
-      {
-        value: '缓慢步行',
-        label: '缓慢步行'
-      },
-      {
-        value: '快速步行',
-        label: '快速步行'
-      },
-      {
-        value: '跑步',
-        label: '跑步'
-      },
-      {
-        value: '前一次碰撞后非正常运动状态',
-        label: '前一次碰撞后非正常运动状态'
-      },
-      {
-        value: '其他',
-        label: '其他'
-      },
-      {
-        value: '未知',
-        label: '未知'
-      }
-    ],
-    // 4012行人被撞部位
-    options4012: [
-      {
-        value: '前方',
-        label: '前方'
-      },
-      {
-        value: '后方',
-        label: '后方'
-      },
-      {
-        value: '左侧',
-        label: '左侧'
-      },
-      {
-        value: '右侧',
-        label: '右侧'
-      },
-      {
-        value: '碰撞前跌倒，躺在地上',
-        label: '碰撞前跌倒，躺在地上'
-      },
-      {
-        value: '其他',
-        label: '其他'
-      }
-    ],
-    // 碰撞前行人相对于车辆的位置
-    options4013: [
-      {
-        value: '前方',
-        label: '前方'
-      },
-      {
-        value: '后方',
-        label: '后方'
-      },
-      {
-        value: '左侧',
-        label: '左侧'
-      },
-      {
-        value: '右侧',
-        label: '右侧'
-      }
-    ],
-    // 4014穿越机动车道时能否被看到
-    options4014: [
-      {
-        value: '可以看见',
-        label: '可以看见'
-      },
-      {
-        value: '因停驻的车而看不到',
-        label: '因停驻的车而看不到'
-      },
-      {
-        value: '因植物而看不到',
-        label: '因植物而看不到'
-      },
-      {
-        value: '因建筑物而看不到',
-        label: '因建筑物而看不到'
-      },
-      {
-        value: '其他',
-        label: '其他'
-      },
-      {
-        value: '未知',
-        label: '未知'
-      }
-    ],
-    options5002: [
-      {
-        value: '机动二轮车/三轮车',
-        label: '机动二轮车/三轮车',
-        children: [
-          {
-            value: '电动自行车',
-            label: '电动自行车',
-          },
-          {
-            value: '电动摩托车',
-            label: '电动摩托车',
-          },
-          {
-            value: '电动三轮车',
-            label: '电动三轮车',
-          },
-          {
-            value: '摩托车',
-            label: '摩托车',
-          },
-          {
-            value: '三轮摩托车',
-            label: '三轮摩托车',
-          },
-        ]
-      },
-      {
-        value: '非机动二轮车/三轮车',
-        label: '非机动二轮车/三轮车',
-        children: [
-          {
-            value: '自行车',
-            label: '自行车',
-          },
-          {
-            value: '三轮车',
-            label: '三轮车',
-          },
-        ]
-      }
-    ],
-    options5010: [
-      {
-        value: '直行',
-        label: '直行',
-      },
-      {
-        value: '左转',
-        label: '左转',
-      },
-      {
-        value: '右转',
-        label: '右转',
-      },
-    ],
-    options5024: [
-      {
-        value: '0',
-        label: '0',
-      },
-      {
-        value: '1',
-        label: '1',
-      },
-      {
-        value: '2',
-        label: '2',
-      },
-      {
-        value: '3',
-        label: '3',
-      },
-      {
-        value: '4',
-        label: '4',
-      },
-      {
-        value: '未知',
-        label: '未知',
-      },
-    ]
+  // 参与方基本信息-行人   
+  options4002: [
+    {
+      value: '男性',
+      label: '男性'
+    },
+    {
+      value: '女性',
+      label: '女性'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ],
+  // 4003人员伤亡情况
+  options4003: [
+    {
+      value: '轻伤',
+      label: '轻伤'
+    },
+    {
+      value: '重伤',
+      label: '重伤'
+    },
+    {
+      value: '死亡',
+      label: '死亡'
+    },
+    {
+      value: '未受伤',
+      label: '未受伤'
+    }
+  ],
+  // 4005参与方颜色（衣着颜色）
+  options4005: [
+    {
+      value: '黄色',
+      label: '黄色'
+    },
+    {
+      value: '橙色',
+      label: '橙色'
+    },
+    {
+      value: '红色',
+      label: '红色'
+    },
+    {
+      value: '紫色',
+      label: '紫色'
+    },
+    {
+      value: '蓝色',
+      label: '蓝色'
+    },
+    {
+      value: '绿色',
+      label: '绿色'
+    },
+    {
+      value: '灰色',
+      label: '灰色'
+    },
+    {
+      value: '棕色',
+      label: '棕色'
+    },
+    {
+      value: '白色',
+      label: '白色'
+    },
+    {
+      value: '黑色',
+      label: '黑色'
+    },
+    {
+      value: '银色',
+      label: '银色'
+    },
+    {
+      value: '香槟色',
+      label: '香槟色'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用'
+    }
+  ],
+  // 4006黑暗处或夜间衣物可见性 
+  options4006: [
+    {
+      value: '明亮的',
+      label: '明亮的'
+    },
+    {
+      value: '深色的/不可见',
+      label: '深色的/不可见'
+    },
+    {
+      value: '反光的',
+      label: '反光的'
+    },
+    {
+      value: '发光的',
+      label: '发光的'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用'
+    }
+  ],
+  // 4007事故发生地点（行人被撞地点）
+  options4007: [
+    {
+      value: '人行道',
+      label: '人行道'
+    },
+    {
+      value: '非机动车道',
+      label: '非机动车道'
+    },
+    {
+      value: '机动车道',
+      label: '机动车道'
+    },
+    {
+      value: '高速/高架',
+      label: '高速/高架'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    }
+  ],
+  // 4008行人穿越机动车道位置
+  options4008: [
+    {
+      value: '未穿越',
+      label: '未穿越'
+    },
+    {
+      value: '有红绿灯处',
+      label: '有红绿灯处'
+    },
+    {
+      value: '斑马线处',
+      label: '斑马线处'
+    },
+    {
+      value: '行人专用通道',
+      label: '行人专用通道'
+    },
+    {
+      value: '未有行人过街保护的机动车正常通行路段',
+      label: '未有行人过街保护的机动车正常通行路段'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ],
+  // 4009行人行走方向 
+  options4009: [
+    {
+      value: '从车辆左侧',
+      label: '从车辆左侧'
+    },
+    {
+      value: '从车辆右侧',
+      label: '从车辆右侧'
+    },
+    {
+      value: '沿车辆运动方向',
+      label: '沿车辆运动方向'
+    },
+    {
+      value: '沿车辆运动反方向',
+      label: '沿车辆运动反方向'
+    },
+    {
+      value: '静止',
+      label: '静止'
+    }
+  ],
+  // 4010行人运动状态
+  options4010: [
+    {
+      value: '静止',
+      label: '静止'
+    },
+    {
+      value: '缓慢步行',
+      label: '缓慢步行'
+    },
+    {
+      value: '快速步行',
+      label: '快速步行'
+    },
+    {
+      value: '跑步',
+      label: '跑步'
+    },
+    {
+      value: '前一次碰撞后非正常运动状态',
+      label: '前一次碰撞后非正常运动状态'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ],
+  // 4012行人被撞部位
+  options4012: [
+    {
+      value: '前方',
+      label: '前方'
+    },
+    {
+      value: '后方',
+      label: '后方'
+    },
+    {
+      value: '左侧',
+      label: '左侧'
+    },
+    {
+      value: '右侧',
+      label: '右侧'
+    },
+    {
+      value: '碰撞前跌倒，躺在地上',
+      label: '碰撞前跌倒，躺在地上'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    }
+  ],
+  // 碰撞前行人相对于车辆的位置
+  options4013: [
+    {
+      value: '前方',
+      label: '前方'
+    },
+    {
+      value: '后方',
+      label: '后方'
+    },
+    {
+      value: '左侧',
+      label: '左侧'
+    },
+    {
+      value: '右侧',
+      label: '右侧'
+    }
+  ],
+  // 4014穿越机动车道时能否被看到
+  options4014: [
+    {
+      value: '可以看见',
+      label: '可以看见'
+    },
+    {
+      value: '因停驻的车而看不到',
+      label: '因停驻的车而看不到'
+    },
+    {
+      value: '因植物而看不到',
+      label: '因植物而看不到'
+    },
+    {
+      value: '因建筑物而看不到',
+      label: '因建筑物而看不到'
+    },
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ],
+    // 4015是否因为视野盲区造成事故
+  // 4016是否由停靠车辆造成行人的视野盲区
+  // 4017是否有其他造成行人视线盲区的物体
+  // 4018开始反应到碰撞前是否有应急姿态
+  // 4019行人是否从障碍物后穿出
+  // 4020行人意识到危险之前是否加速
+  // 4021事故前行人行走方向是否改变
+  options4016: [
+    {
+      value: '否',
+      label: '否'
+    },
+    {
+      value: '是',
+      label: '是'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    },
+  ],
+  options5002: [
+    {
+      value: '机动二轮车/三轮车',
+      label: '机动二轮车/三轮车',
+      children: [
+        {
+          value: '电动摩托车',
+          label: '电动摩托车',
+        },
+        {
+          value: '电动三轮车',
+          label: '电动三轮车',
+        },
+        {
+          value: '摩托车',
+          label: '摩托车',
+        },
+        {
+          value: '三轮摩托车',
+          label: '三轮摩托车',
+        },
+      ]
+    },
+    {
+      value: '非机动二轮车/三轮车',
+      label: '非机动二轮车/三轮车',
+      children: [
+        {
+          value: '电动自行车',
+          label: '电动自行车',
+        },
+        {
+          value: '自行车',
+          label: '自行车',
+        },
+        {
+          value: '三轮车',
+          label: '三轮车',
+        },
+      ]
+    }
+  ],
+  options5010: [
+    {
+      value: '直行',
+      label: '直行',
+    },
+    {
+      value: '左转',
+      label: '左转',
+    },
+    {
+      value: '右转',
+      label: '右转',
+    },
+  ],
+  options5020: [
+    {
+      value: '是',
+      label: '是',
+    },
+    {
+      value: '否',
+      label: '否',
+    },
+    {
+      value: '999-未知',
+      label: '999-未知',
+    },
+    {
+      value: '000-不适用',
+      label: '000-不适用',
+    },
+  ],
+  options5023: [
+    {
+      value: '掉头',
+      label: '掉头',
+    },
+    {
+      value: '向右变道',
+      label: '向右变道',
+    },
+    {
+      value: '向左变道',
+      label: '向左变道',
+    },
+    {
+      value: '静止',
+      label: '静止',
+    },
+    {
+      value: '直线加速',
+      label: '直线加速',
+    },
+    {
+      value: '直线减速',
+      label: '直线减速',
+    },
+    {
+      value: '匀速直线',
+      label: '匀速直线',
+    },
+    {
+      value: '曲线行驶',
+      label: '曲线行驶',
+    },
+    {
+      value: '左转',
+      label: '左转',
+    },
+    {
+      value: '右转',
+      label: '右转',
+    },
+    {
+      value: '888-其他',
+      label: '888-其他',
+    },
+    {
+      value: '999-未知',
+      label: '999-未知',
+    },
+  ],
+  options5024: [
+    {
+      value: '0',
+      label: '0',
+    },
+    {
+      value: '1',
+      label: '1',
+    },
+    {
+      value: '2',
+      label: '2',
+    },
+    {
+      value: '3',
+      label: '3',
+    },
+    {
+      value: '4',
+      label: '4',
+    },
+    {
+      value: '999-未知',
+      label: '999-未知',
+    },
+  ],
+  majorFault2First: [
+    {
+      value: '000-无过失',
+      label: '000-无过失',
+    }
+  ],
+  majorFault2Second: [
+    {
+      value: '超速行驶',
+      label: '超速行驶'
+    },
+    {
+      value: '酒后驾驶',
+      label: '酒后驾驶'
+    },
+    {
+      value: '逆向行驶',
+      label: '逆向行驶'
+    },
+    {
+      value: '违法超车',
+      label: '违法超车'
+    },
+    {
+      value: '违法牵引',
+      label: '违法牵引'
+    },
+    {
+      value: '违法抢行',
+      label: '违法抢行'
+    },
+    {
+      value: '违法上道路行驶',
+      label: '违法上道形行驶'
+    },
+    {
+      value: '违法停车',
+      label: '违法停车'
+    },
+    {
+      value: '违法占道行驶',
+      label: '违法占道行驶'
+    },
+    {
+      value: '违法装载',
+      label: '违法装载'
+    },
+    {
+      value: '违反交通信号',
+      label: '违反交通信号'
+    },
+    {
+      value: '未按规定让行',
+      label: '未按规定让行'
+    },
+    {
+      value: '无证驾驶',
+      label: '无证驾驶'
+    },
+    {
+      value: '其他影响安全行为',
+      label: '其他影响安全行为'
+    },
+  ],
+  majorFault2Third: [
+    {
+      value: '未设置道路安全措施',
+      label: '未设置道路安全措施',
+    },
+    {
+      value: '安全设施损坏灭失',
+      label: '安全设施损坏灭失',
+    },
+    {
+      value: '道路缺陷',
+      label: '道路缺陷',
+    },
+    {
+      value: '其他道路原因',
+      label: '其他道路原因',
+    },
+    {
+      value: '其他影响安全行为',
+      label: '其他影响安全行为',
+    }
+  ],
+  majorFault2Fourth: [
+    {
+      value: '自然灾害',
+      label: '自然灾害'
+    },
+    {
+      value: '机件故障',
+      label: '机件故障'
+    },
+    {
+      value: '爆胎',
+      label: '爆胎'
+    },
+    {
+      value: '其他意外',
+      label: '其他意外'
+    },
+  ],
+  majorFault2Fifth: [
+    {
+      value: '888-其他',
+      label: '888-其他'
+    },
+    {
+      value: '999-未知',
+      label: '999-未知'
+    }
+  ]
 }
 export default dataPro

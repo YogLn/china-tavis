@@ -2,7 +2,7 @@
   <div class="">
     <breadcrumb title="案例审核"></breadcrumb>
     <el-card>
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" v-loading="tableLoading">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="520" v-loading="tableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="g1001" label="案例编号">
@@ -19,7 +19,7 @@
         </el-table-column>
         <el-table-column prop="siteId" label="添加用户的站点" width="130px">
         </el-table-column>
-        <el-table-column prop="checkInfo" label="审核反馈信息" width="220px">
+        <el-table-column prop="checkInfo" label="审核反馈信息" width="220px" :show-overflow-tooltip='true'>
         </el-table-column>
         <el-table-column prop="status" label="案例状态">
           <template slot-scope="scope">
@@ -91,7 +91,7 @@ export default {
     return {
       queryInfo: {
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
       },
       total: 0,
       allCaseList: [],
@@ -204,7 +204,7 @@ export default {
     },
     showDetailDialog(id) {
       this.$refs.DetailFormRef.getDetailList(id)
-    }
+    },
   },
 }
 </script>
@@ -215,5 +215,11 @@ export default {
 }
 /deep/.el-table .cell {
   text-align: center;
+}
+reviewInfo {
+  display: block; /* 需要 */
+  white-space: nowrap; /* 过长部分不换行 */
+  text-overflow: ellipsis; /* 过长部分展示省略号 */
+  overflow: hidden; /* 隐藏过长部分 */
 }
 </style>

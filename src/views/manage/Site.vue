@@ -10,7 +10,7 @@
         </el-col>
       </el-row>
 
-      <el-table :data="siteList" style="width: 100%" :default-sort="{prop: 'siteList.id', order: 'ascending'}" v-loading="tableLoading" stripe border>
+      <el-table :data="siteList" style="width: 100%" v-loading="tableLoading" stripe border max-height="480">
         <el-table-column  sortable type="index" label="#">
         </el-table-column>
         <el-table-column prop="name" label="站点名称">
@@ -30,9 +30,6 @@
     <!-- 修改站点对话框 -->
     <el-dialog title="修改站点" :visible.sync="editSiteDialogVisible" width="30%">
       <el-form ref="editSiteFormRef" :model="editSiteForm" label-width="80px" v-loading="addSiteLoaing">
-        <el-form-item label="站点id">
-          <el-input v-model="editSiteForm.id" disabled></el-input>
-        </el-form-item>
         <el-form-item label="站点名称">
           <el-input v-model="editSiteForm.name"></el-input>
         </el-form-item>
@@ -65,7 +62,7 @@
     <!-- 所有用户对话框 -->
     <el-dialog title="所有用户信息" :visible.sync="allUserDialogVisible" width="80%">
 
-      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" v-loading="allSiteLoading">
+      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" v-loading="allSiteLoading" max-height="480">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="username" label="用户名">
@@ -102,7 +99,7 @@
       </el-table>
 
       <!-- 分页区域 -->
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="this.queryInfo.pageNo" :page-sizes="[1, 2, 5, 10]" :page-size="this.queryInfo.pageSize"
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="this.queryInfo.pageNo" :page-sizes="[5, 10, 15, 20]" :page-size="this.queryInfo.pageSize"
         layout="total, sizes, prev, pager, next, jumper" :total="totalCount" background>
       </el-pagination>
       <span slot="footer" class="dialog-footer">
@@ -130,7 +127,7 @@ export default {
       userList: [],
       queryInfo: {
         pageNo: 0,
-        pageSize: 0,
+        pageSize: 10,
       },
       totalCount: 0,
       addSiteDialogVisible: false,

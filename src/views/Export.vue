@@ -14,7 +14,7 @@
       </el-row>
 
       <!-- 表格区域 -->
-      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="450" @selection-change="handleSelectionChange" v-loading="tableLoading">
+      <el-table :data="allCaseList" stripe border style="width: 100%" max-height="480" @selection-change="handleSelectionChange" v-loading="tableLoading" ref="tableRef">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column type="index" label="#">
@@ -124,6 +124,7 @@ export default {
       // 案例编号数组
       caseNumbers: [],
       transArr: [],
+      allSelectArr: [],
       query: '',
       derValDialogVisible: false,
       activeName: '1',
@@ -147,13 +148,15 @@ export default {
       queryInfo: {
         caseNumber: '',
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
       },
       totalCount: 0,
       // 查看案例详情
       detailsDialogVisible: false,
       caseId: '',
       tableLoading: false,
+      changePage: false,
+      tableSelect: new Set(),
     }
   },
   methods: {
@@ -195,22 +198,42 @@ export default {
         for (let i = 0; i < 144; i++) {
           this.codeCol += 1
         }
-      }      
-      this.transArr.forEach((item) => {
-        this.caseNumbers.push(item.caseNumber)
-      })
-      if(this.transArr == '') {
-        return this.$message.info('请勾选要导出的案例')
       }
-      const res = await this.$http.post(
-        'total/export',
-        {
-          caseNumbers: this.caseNumbers,
-          columns: this.codeCol,
-        },
-        { responseType: 'arraybuffer' }
-      )
-      this.exprtExcel(res)
+      if (this.changePage) {
+        this.allSelectArr.push(...this.transArr)
+        this.allSelectArr.forEach((item) => {
+          this.caseNumbers.push(item.caseNumber)
+        })
+        if (this.allSelectArr == '') {
+          return this.$message.info('请勾选要导出的案例')
+        }
+        const res = await this.$http.post(
+          'total/export',
+          {
+            caseNumbers: this.caseNumbers,
+            columns: this.codeCol,
+          },
+          { responseType: 'arraybuffer' }
+        )
+        this.exprtExcel(res)
+        this.allSelectArr = []
+      } else {
+        this.transArr.forEach((item) => {
+          this.caseNumbers.push(item.caseNumber)
+        })
+        if (this.transArr == '') {
+          return this.$message.info('请勾选要导出的案例')
+        }
+        const res = await this.$http.post(
+          'total/export',
+          {
+            caseNumbers: this.caseNumbers,
+            columns: this.codeCol,
+          },
+          { responseType: 'arraybuffer' }
+        )
+        this.exprtExcel(res)
+      }
     },
     // 导出excel
     exprtExcel(_res) {
@@ -250,6 +273,8 @@ export default {
       this.getCaseList()
     },
     handleCurrentChange(newPage) {
+      this.changePage = true
+      this.allSelectArr.push(...this.transArr)
       this.queryInfo.pageNo = newPage
       this.getCaseList()
     },

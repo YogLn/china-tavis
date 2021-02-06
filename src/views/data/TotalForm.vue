@@ -25,13 +25,9 @@
 <script>
 import bus from './bus'
 import arrayData from '../../components/statistics/findData'
-import dataform from '../../components/form/form'
 
 export default {
   name: 'comboFind',
-  components: {
-    dataform,
-  },
   data() {
     return {
       /*强制刷新组件*/

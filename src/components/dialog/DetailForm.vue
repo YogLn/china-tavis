@@ -193,12 +193,18 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item label="参与方行驶方向机动车道数（条）" prop="r6005">
-                    <el-input v-model="wayInfo.r6005" disabled></el-input>
+                    <el-select v-model="wayInfo.r6005" placeholder="请选择" disabled>
+                      <el-option v-for="item in dataProcess.options6005" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="参与方对向机动车道数（条）" prop="r6006">
-                    <el-input v-model="wayInfo.r6006" disabled></el-input>
+                    <el-select v-model="wayInfo.r6006" placeholder="请选择" disabled>
+                      <el-option v-for="item in dataProcess.options6005" :key="item.value" :label="item.label" :value="item.value">
+                      </el-option>
+                    </el-select>
                   </el-form-item>
                 </el-col>
 
@@ -290,7 +296,7 @@
                 <el-col :span="8">
                   <el-form-item label="道路的线形" prop="r6017">
                     <el-select v-model="wayInfo.r6017" placeholder="请选择" disabled>
-                      <el-option v-for="item in dataProcess.roadTrend" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.roadLinearity" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -615,8 +621,8 @@
 
                 <el-col :span="8">
                   <el-form-item label="主要过错1" prop="v3017">
-                    <el-select v-model="partInfoCar.v3017" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                    <el-select v-model="partInfoCar.v3017" placeholder="请选择" @change="changeCarFault">
+                      <el-option v-for="item in dataProcess.options3017" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -624,7 +630,7 @@
                 <el-col :span="8">
                   <el-form-item label="主要过错2" prop="v3018">
                     <el-select v-model="partInfoCar.v3018" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in CarMajorFault2" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -632,7 +638,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否有优先权" prop="v3019">
                     <el-select v-model="partInfoCar.v3019" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.priority" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -650,7 +656,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="事故前车辆要避撞的对向" prop="v3021">
+                  <el-form-item label="事故前车辆要避撞的对象" prop="v3021">
                     <el-select v-model="partInfoCar.v3021" placeholder="请选择">
                       <el-option v-for="item in dataProcess.options3021" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
@@ -678,12 +684,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="车辆初始速度" prop="v3024">
+                  <el-form-item label="车辆初始速度（km/h）" prop="v3024">
                     <el-input v-model="partInfoCar.v3024"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="碰撞时速（km/h）" prop="v3025">
+                  <el-form-item label="碰撞时速度（km/h）" prop="v3025">
                     <el-input v-model="partInfoCar.v3025"></el-input>
                   </el-form-item>
                 </el-col>
@@ -960,7 +966,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否因为视野盲区造成事故" prop="p4015">
                     <el-select v-model="partInfoPeo.p4015" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -971,7 +977,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否由停靠车辆造成行人的视野盲区" prop="p4016">
                     <el-select v-model="partInfoPeo.p4016" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -979,7 +985,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否有其他造成行人视线盲区的物体" prop="p4017">
                     <el-select v-model="partInfoPeo.p4017" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -987,7 +993,7 @@
                 <el-col :span="8">
                   <el-form-item label="开始反应到碰撞前是否有应急姿态" prop="p4018">
                     <el-select v-model="partInfoPeo.p4018" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -998,7 +1004,7 @@
                 <el-col :span="8">
                   <el-form-item label="行人是否从障碍物后穿出" prop="p4019">
                     <el-select v-model="partInfoPeo.p4019" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1006,7 +1012,7 @@
                 <el-col :span="8">
                   <el-form-item label="行人意识到危险之前是否加速" prop="p4020">
                     <el-select v-model="partInfoPeo.p4020" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1014,7 +1020,7 @@
                 <el-col :span="8">
                   <el-form-item label="事故前行人行走方向是否改变" prop="p4021">
                     <el-select v-model="partInfoPeo.p4021" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1071,7 +1077,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="主要过错1" prop="t5008">
-                    <el-select v-model="partInfoTH.t5008" placeholder="请选择">
+                    <el-select v-model="partInfoTH.t5008" placeholder="请选择" @change="changeThFault">
                       <el-option v-for="item in dataProcess.majorFault1" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
@@ -1080,7 +1086,7 @@
                 <el-col :span="8">
                   <el-form-item label="主要过错2" prop="t5009">
                     <el-select v-model="partInfoTH.t5009" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.majorFault1" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in THMajorFault2" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1097,7 +1103,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="二轮车/三速度（km/h）" prop="t5011">
+                  <el-form-item label="二/三轮车速度（km/h）" prop="t5011">
                     <el-input v-model="partInfoTH.t5011"></el-input>
                   </el-form-item>
                 </el-col>
@@ -1142,7 +1148,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否佩戴头盔" prop="t5016">
                     <el-select v-model="partInfoTH.t5016" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1177,7 +1183,7 @@
                 <el-col :span="8">
                   <el-form-item label="事故时二/三轮车转向灯是否开启" prop="t5020">
                     <el-select v-model="partInfoTH.t5020" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options5020" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1185,7 +1191,7 @@
                 <el-col :span="8">
                   <el-form-item label="是否有优先权" prop="t5021">
                     <el-select v-model="partInfoTH.t5021" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1196,7 +1202,7 @@
                 <el-col :span="8">
                   <el-form-item label="开始反应到碰撞前是否采取转向措施" prop="t5022">
                     <el-select v-model="partInfoTH.t5022" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.optionsTF" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options4016" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1204,7 +1210,7 @@
                 <el-col :span="8">
                   <el-form-item label="事故发生前车辆运动类型" prop="t5023">
                     <el-select v-model="partInfoTH.t5023" placeholder="请选择">
-                      <el-option v-for="item in dataProcess.options3026" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in dataProcess.options5023" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </el-form-item>
@@ -1235,7 +1241,7 @@
         <el-tab-pane label="审核信息">
           <el-form ref="reviewInfoRef" :model="reviewInfo" label-width="80px">
             <el-form-item label="审核信息">
-              <el-input type="textarea" disabled rows="6" v-model="reviewInfo.info"></el-input>
+              <el-input type="textarea" disabled rows="15" v-model="reviewInfo.info"></el-input>
             </el-form-item>
           </el-form>
         </el-tab-pane>
@@ -1250,10 +1256,24 @@
 <script>
 import dataProcess from '../newcase/dataProcess'
 export default {
+  created() {
+    this.majorFault2First = dataProcess.majorFault2First
+    this.majorFault2Second = dataProcess.majorFault2Second
+    this.majorFault2Third = dataProcess.majorFault2Third
+    this.majorFault2Fourth = dataProcess.majorFault2Fourth
+    this.majorFault2Fifth = dataProcess.majorFault2Fifth
+  },
   data() {
     return {
       visible: false,
       detailLoading: false,
+      majorFault2First: [],
+      majorFault2Second: [],
+      majorFault2Third: [],
+      majorFault2Fourth: [],
+      majorFault2Fifth: [],
+      CarMajorFault2: [],
+      THMajorFault2: [],
       // 总体信息
       dataProcess: dataProcess,
       totalInfo: {
@@ -1447,6 +1467,7 @@ export default {
   methods: {
     dialogClose() {
       this.visible = false
+      this.partInfoId2 = 1
       this.$emit('dialogClose')
     },
     async getDetailList(id) {
@@ -1509,14 +1530,50 @@ export default {
         })
       }
     },
+    changeCarFault(opt) {
+      this.partInfoCar.v3018 = ''
+      if (opt == '无过失') {
+        this.CarMajorFault2 = dataProcess.options30181
+      } else if (opt == '机动车违法') {
+        this.CarMajorFault2 = dataProcess.options30182
+      } else if (opt == '机动车非违法过错') {
+        this.CarMajorFault2 = dataProcess.options30183
+      } else if (opt == '非机动车违法') {
+        this.CarMajorFault2 = dataProcess.options30184
+      } else if (opt == '行人及乘车人违法') {
+        this.CarMajorFault2 = dataProcess.options30185
+      } else if (opt == '道路原因') {
+        this.CarMajorFault2 = dataProcess.options30186
+      } else if (opt == '意外') {
+        this.CarMajorFault2 = dataProcess.options30187
+      } else {
+        this.CarMajorFault2 = dataProcess.options30188
+      }
+    },
+    changeThFault(opt) {
+      this.partInfoTH.t5009 = ''
+      if (opt == '无过失') {
+        this.THMajorFault2 = this.majorFault2First
+      } else if (opt == '非机动车违法') {
+        this.THMajorFault2 = this.majorFault2Second
+      } else if (opt == '道路原因') {
+        this.THMajorFault2 = this.majorFault2Third
+      } else if (opt == '意外') {
+        this.THMajorFault2 = this.majorFault2Fourth
+      } else {
+        this.THMajorFault2 = this.majorFault2Fifth
+      }
+    },
   },
 }
 </script>
 
 <style scoped lang="less">
 .dialog {
-  height: 480px;
-  overflow: auto;
+  margin-left: 2%;
+  width: 98%;
+  height: 460px;
+  overflow-y: auto;
 }
 .tab-scroll {
   height: 400px;

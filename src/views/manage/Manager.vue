@@ -16,7 +16,7 @@
         </el-col>
       </el-row>
       <!-- 表格区域 -->
-      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" max-height="450" v-loading="tableLoading">
+      <el-table :data="userList" border stripe style="width: 100%" v-if="userList" max-height="480" v-loading="tableLoading">
         <el-table-column type="index" label="#">
         </el-table-column>
         <el-table-column prop="username" label="用户名">
@@ -59,7 +59,7 @@
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="this.queryInfo.pageNo" :page-sizes="[5, 10, 15]" :page-size="this.queryInfo.pageSize"
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="this.queryInfo.pageNo" :page-sizes="[5, 10, 15, 20]" :page-size="this.queryInfo.pageSize"
         layout="total, sizes, prev, pager, next, jumper" :total="totalCount" background>
       </el-pagination>
       <!-- 注册新用户对话框 -->
@@ -77,7 +77,7 @@
           <el-form-item label="站点">
             <!-- 站点选择器 -->
             <el-select v-model="siteValue" :popper-append-to-body="false" placeholder="请选择" @change="getSelectSiteType">
-              <el-option v-for="(item, index) in siteType" :key="index" :label="item.name" :value="item.id">
+              <el-option v-for="item in siteType" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
@@ -112,8 +112,8 @@
           </el-form-item>
           <el-form-item label="站点">
             <!-- 站点选择器 -->
-            <el-select v-model="editUserForm.siteId" placeholder="请选择" @change="getSelectSiteType">
-              <el-option v-for="(item, index) in siteType" :key="index" :label="item.name" :value="item.id">
+            <el-select v-model="editSiteId" placeholder="请选择" @change="getSelectSiteType">
+              <el-option v-for="item in siteType" :key="item.id" :label="item.name" :value="item.id">
               </el-option>
             </el-select>
           </el-form-item>
@@ -203,7 +203,7 @@ export default {
       },
       queryInfo: {
         pageNo: 1,
-        pageSize: 5,
+        pageSize: 10,
         searchString: '',
       },
       totalCount: 0,
@@ -213,9 +213,11 @@ export default {
       roleType: [],
       roleValue: '超级管理员',
       editUserDialogVisable: false,
+      editSiteId: '',
       editUserForm: {
         description: '',
         email: '',
+        id: 0,
         roleId: 0,
         siteId: 0,
         telephone: '',
@@ -338,13 +340,19 @@ export default {
       this.editRoleValue = res.data.data.roles[0].description
       if (res.data.data.site) {
         this.editSiteValue = res.data.data.site.name
+        this.editSiteId = res.data.data.site.name
       } else {
         this.editSiteValue = '无'
       }
-      this.editUserForm = res.data.data
-      if (res.data.data.site !== null) {
-        this.editUserForm.siteId = res.data.data.site.name
+      this.editUserForm.id = res.data.data.id
+      this.editUserForm.description = res.data.data.description
+      this.editUserForm.email = res.data.data.email
+      this.editUserForm.roleId = res.data.data.roles[0].id
+      if(res.data.data.site) {
+        this.editUserForm.siteId = res.data.data.site.id
       }
+      this.editUserForm.telephone = res.data.data.telephone
+      this.editUserForm.username = res.data.data.username
       this.editUserDialogVisable = true
       this.editLoading = false
     },
@@ -373,8 +381,9 @@ export default {
     async editUser() {
       const res = await this.$http.put('manager/user', this.editUserForm)
       if (res.status !== 200 || res.data.code !== 200) {
-        this.$message.error('修改失败')
+        return this.$message.error('修改失败')
       }
+      
       this.getMyInfo()
       this.editUserDialogVisable = false
       this.getUserList()

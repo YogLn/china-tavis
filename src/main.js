@@ -14,8 +14,8 @@ import axios from 'axios'
 import VCharts from 'v-charts'
 Vue.use(VCharts)
 
-axios.defaults.baseURL = 'http://localhost:8080/api/'
-// axios.defaults.baseURL = 'http://china-tavis.com:8081/api/'
+// axios.defaults.baseURL = 'http://localhost:8080/api/'
+axios.defaults.baseURL = 'http://china-tavis.com:8081/api/'
 axios.defaults.headers = {
   'Content-Type': 'application/json', //如果写成contentType会报错
 }
